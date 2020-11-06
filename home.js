@@ -35,7 +35,6 @@ export default function home() {
                 <Tab.Screen name="Create" component={navCreate}/>
             </Tab.Navigator>
         </NavigationContainer>
-        
     )
 }
 const styles = StyleSheet.create({

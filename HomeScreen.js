@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Navigator from './Navigate';
 
-export default function App() {
+export default function HomeScreen() {
   return (
-    <Navigator/>
+    <View style={styles.container}>
+      <Text>Home</Text>
+    </View>
   );
 }
 

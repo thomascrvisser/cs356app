@@ -17,7 +17,7 @@ export default function HomeScreen({ navigation }) {
       >
         <SafeAreaView>
           <View style={styles.homePageHeaderSection}>
-            <Text style={styles.headerUserName}>{navigation.getParam('email')}</Text>
+            <Text style={styles.headerUserName}>{navigation.getParam('username')}</Text>
             <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={onSettingPress}>
               <Image
                 style={styles.buttonImageIconStyle}

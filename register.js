@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 
 export default class App extends React.Component {
   state={
-    email:"",
+    username:"",
     password:"",
     confirm_password:""
   }
@@ -16,9 +16,9 @@ export default class App extends React.Component {
         <View style={styles.inputView} >
           <TextInput  
             style={styles.inputText}
-            placeholder="Email..." 
+            placeholder="Username..." 
             placeholderTextColor="#003f5c"
-            onChangeText={text => this.setState({email:text})}/>
+            onChangeText={text => this.setState({username:text})}/>
         </View>
         <View style={styles.inputView} >
           <TextInput  

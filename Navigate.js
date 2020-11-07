@@ -5,7 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 
 const stackNavigatorOptions = {
-    headerShown:false
+    headerShown: false
 }
 const AppNavigator = createStackNavigator({
     Login:{screen:Login},

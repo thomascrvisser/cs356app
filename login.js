@@ -2,13 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 
 export default class App extends React.Component {
-  state={
+  state = {
     email:"",
     password:""
   }
 
   render(){
-      const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
         <Text style={styles.logo}>ScoreApp</Text>
@@ -28,7 +28,7 @@ export default class App extends React.Component {
             onChangeText={text => this.setState({password:text})}/>
         </View>
         
-        <TouchableOpacity style={styles.loginBtn} onPress={()=>navigate('Home')}>
+        <TouchableOpacity style={styles.loginBtn} onPress={()=> navigate('Home', {email: this.state.email})}>
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>navigate('Register')}>

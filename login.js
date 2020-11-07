@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 
 export default class App extends React.Component {
   state = {
-    email:"",
+    username:"",
     password:""
   }
 
@@ -15,9 +15,9 @@ export default class App extends React.Component {
         <View style={styles.inputView} >
           <TextInput  
             style={styles.inputText}
-            placeholder="Email..." 
+            placeholder="Username..." 
             placeholderTextColor="#003f5c"
-            onChangeText={text => this.setState({email:text})}/>
+            onChangeText={text => this.setState({username:text})}/>
         </View>
         <View style={styles.inputView} >
           <TextInput  
@@ -28,7 +28,7 @@ export default class App extends React.Component {
             onChangeText={text => this.setState({password:text})}/>
         </View>
         
-        <TouchableOpacity style={styles.loginBtn} onPress={()=> navigate('Home', {email: this.state.email})}>
+        <TouchableOpacity style={styles.loginBtn} onPress={()=> navigate('Home', {username: this.state.username})}>
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>navigate('Register')}>

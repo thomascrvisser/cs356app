@@ -3,10 +3,8 @@ import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image, Dimensio
 import { LinearGradient } from 'expo-linear-gradient'
 
 const window = Dimensions.get('window');
-const onSettingPress = () => {};
 
-
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation, navigationOptions }) {
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -18,7 +16,9 @@ export default function HomeScreen({ navigation }) {
         <SafeAreaView>
           <View style={styles.homePageHeaderSection}>
             <Text style={styles.headerUserName}>{navigation.getParam('username')}</Text>
-            <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={onSettingPress}>
+            <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={() => {
+                  navigation.navigate('Settings')
+                }}>
               <Image
                 style={styles.buttonImageIconStyle}
                 source={require('./assets/settings_icon.png')}

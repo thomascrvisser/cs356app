@@ -1,6 +1,7 @@
 import Home from './home';
 import Register from './register';
 import Login from './login';
+import Settings from './settings'
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 
@@ -10,7 +11,11 @@ const stackNavigatorOptions = {
 const AppNavigator = createStackNavigator({
     Login:{screen:Login},
     Register:{screen:Register},
-    Home:{screen:Home}
+    Home:{screen:Home},
+    Settings:{
+        screen:Settings,
+        screenOptions={headerShown: true}
+    }
 },
 {
     defaultNavigationOptions : stackNavigatorOptions

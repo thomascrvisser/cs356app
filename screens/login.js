@@ -28,7 +28,10 @@ export default class App extends React.Component {
             onChangeText={text => this.setState({password:text})}/>
         </View>
         
-        <TouchableOpacity style={styles.loginBtn} onPress={()=> navigate('Home', {username: this.state.username})}>
+        <TouchableOpacity style={styles.loginBtn} onPress={()=> navigate('Home', {
+          screen: 'Home',
+          params: {username: this.state.username},
+        })}>
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>navigate('Register')}>

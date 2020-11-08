@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { StyleSheet, Text, View, SafeAreaView, FlatList, Button, TextInput } from 'react-native';
 import { SearchBar, ListItem } from 'react-native-elements';
-import ScoreCardItem, { Card } from './ScoreCardItem';
+import ScoreCardItem, { Card } from '../components/ScoreCardItem';
 
 export default class Search extends React.Component {
   constructor(props) {

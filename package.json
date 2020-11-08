@@ -8,12 +8,14 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo/vector-icons": "^10.2.1",
     "@freakycoder/react-native-bounceable": "^0.2.4",
     "@paraboly/react-native-card": "^1.0.0",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.10",
-    "@react-navigation/bottom-tabs": "^5.10.4",
+    "@react-navigation/bottom-tabs": "^5.10.6",
     "@react-navigation/native": "^5.8.4",
+    "@react-navigation/stack": "^5.12.3",
     "expo": "~39.0.2",
     "expo-linear-gradient": "~8.3.0",
     "expo-status-bar": "~1.0.2",

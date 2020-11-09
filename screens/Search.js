@@ -71,7 +71,7 @@ export default class Search extends React.Component {
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => (
-            <ScoreCardItem title={item.name}/>
+            <ScoreCardItem title={item.name} navigation={this.props.navigation}/>
           )}
           keyExtractor={item => item.name}
           ItemSeparatorComponent={this.renderSeparator}

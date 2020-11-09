@@ -1,13 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Dimensions, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'
-import { Ionicons } from '@expo/vector-icons';
+import ScoreCardItem, { Card } from '../components/ScoreCardItem';
+import { testUser1 } from '../db'
 
 const window = Dimensions.get('window');
-const onSettingPress = () => {};
-
 
 export default function Home({ route, navigation }) {
+
+  const renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '100%',
+          backgroundColor: '#CED0CE',
+        }}
+      />
+    );
+  };
+
+  const renderHeader = () => {
+    return (
+      <Text style={styles.scorecardHeader}>ScoreCards</Text>
+    );
+  };
+
   const { username } = route.params
   return (
     <View style={styles.container}>
@@ -15,20 +33,22 @@ export default function Home({ route, navigation }) {
         colors={['steelblue', 'lightgray']}
         style={styles.container}
         start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }} 
-      >
-        <SafeAreaView>
-          <View style={styles.homePageHeaderSection}>
-            <Text style={styles.headerUserName}>{username}</Text>
-            <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={onSettingPress}>
-              <Ionicons name='ios-cog' color={'black'} size={40}/>
-            </TouchableOpacity>
-          </View>
-          {/* Add the list here, replace it with the TEXT field */}
-          <Text style={styles.generalText}>Hello and Welcome! Add the score card list here</Text>
-        </SafeAreaView>
-      </LinearGradient>
-    </View>
+          end={{ x: 0, y: 1 }}
+        >
+          <SafeAreaView>
+            {/* Add the list here, replace it with the TEXT field */}
+            <FlatList
+              data={testUser1}
+              renderItem={({ item }) => (
+                <ScoreCardItem title={item.name} navigation={navigation}/>
+              )}
+              keyExtractor={item => item.name}
+              ItemSeparatorComponent={renderSeparator}
+              ListHeaderComponent={renderHeader}
+            />
+          </SafeAreaView>
+        </LinearGradient>
+      </View>
   );
 }
 
@@ -36,6 +56,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
+    width: "100%"
   },
   generalText: {
     flex: 2,
@@ -67,5 +88,12 @@ const styles = StyleSheet.create({
     height: 25,
     width: 25,
     resizeMode: 'stretch',
+  },
+  scorecardHeader: {
+    fontSize: 30,
+    color: "white",
+    textAlign: "center",
+    justifyContent: 'center',
+    height: 40
   }
 });

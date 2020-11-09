@@ -30,7 +30,7 @@ export default class App extends React.Component {
         
         <TouchableOpacity style={styles.loginBtn} onPress={()=> navigate('Home', {
           screen: 'Home',
-          params: {username: this.state.username},
+          params: { username: this.state.username },
         })}>
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>

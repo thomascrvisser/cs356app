@@ -5,7 +5,7 @@ import { Card } from "@paraboly/react-native-card";
 export default function ScoreCardItem({ title, navigation }) {
     const onPress = () => {
         alert(`You tapped ${title}`)
-        navigation.navigate('Create')
+        navigation.navigate('ActiveScoreCard')
     }
     return (
         <Card

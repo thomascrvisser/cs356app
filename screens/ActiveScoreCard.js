@@ -1,61 +1,143 @@
-import { Button } from 'native-base';
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity, Text } from 'react-native';
-import { Table, TableWrapper, Row, Rows, Col, Cell } from 'react-native-table-component';
+import { StyleSheet, View, ScrollView, Text, Alert, TextInput } from 'react-native';
 
 export default class ActiveScoreCard extends Component {
-    constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
-      tableHead: ['Head', 'Head2', 'Head3', 'Head4', 'Head5', 'Head6', 'Head7', 'Head8', 'Head9'],
-      widthArr: [40, 60, 80, 100, 120, 140, 160, 180, 200]
+      gridValues: [
+        ['Players', 'blue', 'red', 'green', 'yellow', 'Total'],
+        ['Player1', 0, 0, 0, 0, 0],
+        ["Player2", 0, 0, 0, 0, 0],
+        ['Player3', 0, 0, 0, 0, 0]
+      ],
     }
   }
- 
-  render() {
-    const state = this.state;
-    const tableData = [];
-    for (let i = 0; i < 30; i += 1) {
-      const rowData = [];
-      for (let j = 0; j < 9; j += 1) {
-        rowData.push(`${i}${j}`);
+
+  saveInput(input, row, col, players, cols) {
+    // Still need to figure out player strings
+    // if (col == 0) {
+    //   this.state.gridValues[row][0] = input
+    // }
+    this.state.gridValues[row][col] = parseInt(input)
+    this.calculateTotals(players, cols)
+  }
+
+  calculateTotals(players, cols) {
+    let row = 0
+    players.forEach(() => {
+      if (row != 0) {
+        let total = 0
+        for (let col = 1; col < cols.length; col++) {
+          total += this.state.gridValues[row][col]
+        }
+        // Send total somewhere to be displayed
       }
-      tableData.push(rowData);
-    }
- 
-    return (
-      <View style={styles.container}>
-        <ScrollView horizontal={true}>
+      row += 1
+    })
+  }
+
+  renderRows(row, col, players, colHeaders) {
+      return ( 
           <View>
-            <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
-              <Row data={state.tableHead} widthArr={state.widthArr} style={styles.header} textStyle={styles.text}/>
-            </Table>
-            <ScrollView style={styles.dataWrapper}>
-              <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
+            <ScrollView horizontal={true}>
+              <View style={styles.grid}>
                 {
-                  tableData.map((rowData, index) => (
-                    <Row
-                      key={index}
-                      data={rowData}
-                      widthArr={state.widthArr}
-                      style={[styles.row, index%2 && {backgroundColor: '#F7F6E7'}]}
-                      textStyle={styles.text}
-                    />
-                  ))
+                  players.map(() => {
+                    row += 1
+                    if (row == 0) {
+                      return this.renderHeaderRow(row, col, colHeaders)
+                    } else {
+                      col = -1
+                      return this.renderPointRow(row , col, players, colHeaders)
+                    }
+                  })
                 }
-              </Table>
+              </View>
             </ScrollView>
           </View>
-        </ScrollView>
+      );
+  }
+
+  renderHeaderRow(row, col, colHeaders) {
+    return (
+        <View key={Math.random()+row} style={styles.headerRow}>
+            {
+              colHeaders.map((header) => {
+                col += 1
+                return this.renderHeaderCell(header)
+              })
+            }
+        </View>
+    );
+  }
+
+  renderHeaderCell(headerText) {
+    return (
+      <Text key={Math.random()} style={styles.headerCell}>{headerText}</Text>
+    )
+  }
+
+  renderPointRow(row, col, players, cols) {
+    return (
+      <View key={Math.random()+col} style={styles.pointRow}>
+        {
+          cols.map(() => {
+            col += 1
+            return this.renderPointCell(row, col, players, cols)
+          })
+        }
       </View>
     )
   }
+
+  renderPointCell(row, col, players, cols) {
+    return (
+      <TextInput  
+        key={Math.random()}
+        style={styles.pointCell}
+        placeholder="" 
+        placeholderTextColor="white"
+        onChangeText={text => {this.saveInput(text.toString(), row, col, players, cols)}}
+      />
+    )
+  }
+
+  render(players, headers) {
+      const players1 = ['Player 1', 'Player2', 'Player3']
+      const headers1 = ['Players', 'blue', 'red', 'green', 'yellow']
+      const buidTable = ['']
+
+      players1.unshift('')
+      let row = -1
+      let col = 0
+
+      return (
+        <>
+          <View style={{ height: "50%"}}>
+            <ScrollView>
+              {
+                buidTable.map(() => {
+                  return this.renderRows(row, col, players1, headers1);
+                })
+              }
+          </ScrollView>
+          </View>
+          <View>
+              {/* Place leaderboard and finish button here */}
+          </View>
+        </>
+      );
+  }
 }
- 
+
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
   header: { height: 50, backgroundColor: '#537791' },
   text: { textAlign: 'center', fontWeight: '100' },
-  dataWrapper: { marginTop: -1 },
-  row: { height: 40, backgroundColor: '#E7E6E1' }
+  headerRow: { height: 40, backgroundColor: '#E7E6E1', flexDirection: "row", justifyContent: "center"},
+  headerCell: {height: 70, width: 80, backgroundColor: '#1f51be', color: 'white', textAlign: "center"},
+  pointRow: { height: 50, backgroundColor: '#8ba9ec', flexDirection: "row", justifyContent: "center"},
+  pointCell: {width: 80, backgroundColor: '#8ba9ec', color: 'white', textAlign: "center", textDecorationStyle: "solid", fontSize: 30, borderWidth: 1},
+  grid: { flexDirection: 'column' }
 });

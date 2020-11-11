@@ -23,6 +23,8 @@
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
     "react-native-androw": "0.0.34",
+    "react-native-counter-input": "^0.1.2",
+    "react-native-counters": "^1.2.0",
     "react-native-dynamic-vector-icons": "^1.1.4",
     "react-native-elements": "^3.0.0-alpha.1",
     "react-native-gesture-handler": "^1.8.0",

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { ScrollView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
-import { Counter } from 'react-native-counters'
 import { CheckBox } from 'react-native-elements';
 import { sub } from 'react-native-reanimated';
 import { testUser1 } from '../db/userScorecards';

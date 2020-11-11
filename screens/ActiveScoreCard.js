@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, Alert, TextInput, Button } from 'react-native';
+import { Col, Row, Grid } from 'react-native-easy-grid'
+// import { Dialog, ConfirmDialog } from 'react-native-simple-dialogs'
+// import { DialogInput } from 'react-native-dialog-input'
+import Dialog from "react-native-dialog"
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
 
 export default class ActiveScoreCard extends Component {
   constructor(props) {
@@ -11,6 +17,9 @@ export default class ActiveScoreCard extends Component {
         ["Player2", 0, 0, 0, 0, 0],
         ['Player3', 0, 0, 0, 0, 0]
       ],
+      leaderBoard: [],
+      showDialog: false,
+      newName: ''
     }
   }
 
@@ -32,10 +41,19 @@ export default class ActiveScoreCard extends Component {
         for (let col = 1; col < cols.length; col++) {
           total += this.state.gridValues[row][col]
         }
+        console.log(this.state.gridValues[row][0])
+        let name = this.state.gridValues[row][0]
+        this.state.leaderBoard.push({name: name, score: total})
         // Send total somewhere to be displayed
       }
       row += 1
     })
+    console.log(this.state.leaderBoard)
+  }
+
+
+  addPlayerName() {
+  
   }
 
   renderRows(row, col, players, colHeaders) {
@@ -80,11 +98,33 @@ export default class ActiveScoreCard extends Component {
   }
 
   renderPointRow(row, col, players, cols) {
+    const showDialog = () => {
+      this.setState({showDialog: true})
+    }
+   
+    const handleSave = () => {
+      console.log('saving...')
+      this.state.leaderBoard[row] = this.state.newName
+      this.setState({showDialog: false})
+    }
+
     return (
       <View key={Math.random()} style={styles.pointRow}>
         {
           cols.map(() => {
             col += 1
+            if (col == 0) {
+              return (
+                <View style={styles.container}>
+                  <Button title={String(this.state.leaderBoard[row])} onPress={showDialog} />
+                  <Dialog.Container visible={this.state.showDialog}>
+                    <Dialog.Title>Add Player</Dialog.Title>
+                    <Dialog.Input placeholder='player 1' onEndEditing={(text) => this.setState({newName: text})}></Dialog.Input>
+                    <Dialog.Button label="Save" onPress={handleSave} />
+                  </Dialog.Container>
+                </View>
+              )
+            }
             return this.renderPointCell(row, col, players, cols)
           })
         }
@@ -114,11 +154,13 @@ export default class ActiveScoreCard extends Component {
     let col = 0
     let players1 = []
 
-    for (let i = 0; i < players; i++) {
+    for (let i = 0; i <= players.length; i++) {
       players1.push('')
     }
-    players1.unshift('')
 
+    const returnHome = () => {
+      this.props.navigation.navigate('Home')
+    }
 
     return (
       <View>
@@ -131,8 +173,22 @@ export default class ActiveScoreCard extends Component {
             }
         </ScrollView>
         </View>
-        <View style={{height: '50%', backgroundColor: 'lightgreen'}}>
-            <Button title="Finished" color="black" style={styles.finishedBtn} onPress={() => Alert.alert('You are done!')}/>
+        <View style={{height: '50%', flexDirection: "column"}}>
+          <View style={styles.leaderBoard}>
+            <Grid>
+              <Row style={styles.leaderBoardHeader}><Text>LeaderBoard</Text></Row>
+              {
+                players1.map(() => {
+                  return (<Row><Text>{'player'}: {'score'}</Text></Row>)
+                })
+              }
+            </Grid>
+          </View>
+          <View style={styles.finishedBtnArray}>
+              <TouchableOpacity style={styles.finishedBtn} onPress={returnHome}>
+                <Text>Finished</Text>
+              </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -145,5 +201,8 @@ const styles = StyleSheet.create({
   pointRow: { height: 50, backgroundColor: '#8ba9ec', flexDirection: "row", justifyContent: "center"},
   pointCell: {width: 80, backgroundColor: '#8ba9ec', color: 'white', textAlign: "center", textDecorationStyle: "solid", fontSize: 30, borderWidth: 1},
   grid: { flexDirection: 'column' },
-  finishedBtn: {backgroundColor: 'lightblue'}
+  finishedBtnArray: {flexDirection: 'row', justifyContent: 'center', marginTop: 20 },
+  finishedBtn: {backgroundColor: 'lightblue', borderWidth: 2, borderRadius: 10, fontSize: 50, fontWeight: 'bold', padding: 7},
+  leaderBoard: {height: 200, alignSelf: 'center', backgroundColor: 'lightgreen'},
+  leaderBoardHeader: { height: 30, width: '100%',justifyContent: 'center'}
 });

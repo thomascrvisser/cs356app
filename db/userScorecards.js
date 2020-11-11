@@ -7,7 +7,7 @@ const testUser1 = [
 const skullKingScorecard = {
   title: 'Skull King',
   description: 'This is the skull king game!',
-  players: 4,
+  players: ['p1', 'p2', 'p3', 'p4'],
   headers: ['Players', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
   grid: [
     ['Players', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],

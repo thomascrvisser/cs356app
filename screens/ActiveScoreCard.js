@@ -19,129 +19,8 @@ export default class ActiveScoreCard extends Component {
       ],
       leaderBoard: [],
       showDialog: false,
-      newName: ''
+      // newName: ''
     }
-  }
-
-
-  saveInput(input, row, col, players, cols) {
-    // Still need to figure out player strings
-    // if (col == 0) {
-      // this.state.gridValues[row][0] = input
-    // }
-    this.state.gridValues[row][col] = parseInt(input)
-    this.calculateTotals(players, cols)
-  }
-
-  calculateTotals(players, cols) {
-    let row = 0
-    players.forEach(() => {
-      if (row != 0) {
-        let total = 0
-        for (let col = 1; col < cols.length; col++) {
-          total += this.state.gridValues[row][col]
-        }
-        console.log(this.state.gridValues[row][0])
-        let name = this.state.gridValues[row][0]
-        this.state.leaderBoard.push({name: name, score: total})
-        // Send total somewhere to be displayed
-      }
-      row += 1
-    })
-    console.log(this.state.leaderBoard)
-  }
-
-
-  addPlayerName() {
-  
-  }
-
-  renderRows(row, col, players, colHeaders) {
-      return ( 
-          <View>
-            <ScrollView horizontal={true}>
-              <View style={styles.grid}>
-                {
-                  players.map(() => {
-                    row += 1
-                    if (row == 0) {
-                      return this.renderHeaderRow(row, col, colHeaders)
-                    } else {
-                      col = -1
-                      return this.renderPointRow(row , col, players, colHeaders)
-                    }
-                  })
-                }
-              </View>
-            </ScrollView>
-          </View>
-      );
-  }
-
-  renderHeaderRow(row, col, colHeaders) {
-    return (
-        <View key={Math.random()} style={styles.headerRow}>
-            {
-              colHeaders.map((header) => {
-                col += 1
-                return this.renderHeaderCell(header)
-              })
-            }
-        </View>
-    );
-  }
-
-  renderHeaderCell(headerText) {
-    return (
-      <Text key={Math.random()} style={styles.headerCell}>{headerText}</Text>
-    )
-  }
-
-  renderPointRow(row, col, players, cols) {
-    const showDialog = () => {
-      this.setState({showDialog: true})
-    }
-   
-    const handleSave = () => {
-      console.log('saving...')
-      this.state.leaderBoard[row] = this.state.newName
-      this.setState({showDialog: false})
-    }
-
-    return (
-      <View key={Math.random()} style={styles.pointRow}>
-        {
-          cols.map(() => {
-            col += 1
-            if (col == 0) {
-              return (
-                <View style={styles.container}>
-                  <Button title={String(this.state.leaderBoard[row])} onPress={showDialog} />
-                  <Dialog.Container visible={this.state.showDialog}>
-                    <Dialog.Title>Add Player</Dialog.Title>
-                    <Dialog.Input placeholder='player 1' onEndEditing={(text) => this.setState({newName: text})}></Dialog.Input>
-                    <Dialog.Button label="Save" onPress={handleSave} />
-                  </Dialog.Container>
-                </View>
-              )
-            }
-            return this.renderPointCell(row, col, players, cols)
-          })
-        }
-      </View>
-    )
-  }
-
-  renderPointCell(row, col, players, cols) {
-    return (
-      <TextInput  
-        key={Math.random()}
-        style={styles.pointCell}
-        placeholder="" 
-        placeholderTextColor="white"
-        onChangeText={text => {this.saveInput(text.toString(), row, col, players, cols)}}
-      />
-    )
   }
 
   render() {
@@ -162,13 +41,128 @@ export default class ActiveScoreCard extends Component {
       this.props.navigation.navigate('Home')
     }
 
+    const saveInput = (input, row, col, players, cols) => {
+      // Still need to figure out player strings
+      // if (col == 0) {
+        // this.state.gridValues[row][0] = input
+      // }
+      this.state.gridValues[row][col] = parseInt(input)
+      calculateTotals(players, cols)
+    }
+
+    const calculateTotals = (players, cols) => {
+      let row = 0
+      players.forEach(() => {
+        if (row != 0) {
+          let total = 0
+          for (let col = 1; col < cols.length; col++) {
+            total += this.state.gridValues[row][col]
+          }
+          console.log(this.state.gridValues[row][0])
+          let name = this.state.gridValues[row][0]
+          this.state.leaderBoard.push({name: name, score: total})
+          // Send total somewhere to be displayed
+        }
+        row += 1
+      })
+      console.log(this.state.leaderBoard)
+    }
+
+    const renderRows = (row, col, players, colHeaders) => {
+      return ( 
+          <View>
+            <ScrollView horizontal={true}>
+              <View style={styles.grid}>
+                {
+                  players.map(() => {
+                    row += 1
+                    if (row == 0) {
+                      return renderHeaderRow(row, col, colHeaders)
+                    } else {
+                      col = -1
+                      return renderPointRow(row , col, players, colHeaders)
+                    }
+                  })
+                }
+              </View>
+            </ScrollView>
+          </View>
+      );
+    }
+
+    const renderHeaderRow = (row, col, colHeaders) => {
+      return (
+          <View key={Math.random()} style={styles.headerRow}>
+              {
+                colHeaders.map((header) => {
+                  col += 1
+                  return renderHeaderCell(header)
+                })
+              }
+          </View>
+      );
+    }
+  
+    const renderHeaderCell = (headerText) => {
+      return (
+        <Text key={Math.random()} style={styles.headerCell}>{headerText}</Text>
+      )
+    }
+
+    const renderPointRow = (row, col, players, cols) => {
+      const showDialog = () => {
+        this.setState({showDialog: true})
+      }
+     
+      const handleSave = () => {
+        this.state.leaderBoard[row] = this.state.newName
+        this.setState({showDialog: false})
+      }
+  
+      return (
+        <View key={Math.random()} style={styles.pointRow}>
+          {
+            cols.map(() => {
+              col += 1
+              if (col == 0) {
+                return (
+                  <View key={Math.random()} style={styles.container}>
+                    <Button title='player' onPress={showDialog} />
+                    <Dialog.Container visible={this.state.showDialog}>
+                      <Dialog.Title>Add Player</Dialog.Title>
+                      <Dialog.Input placeholder='player 1' onEndEditing={(text) => {}}></Dialog.Input>
+                      <Dialog.Button label="Save" onPress={handleSave} />
+                    </Dialog.Container>
+                  </View>
+                )
+              }
+              return renderPointCell(row, col, players, cols)
+            })
+          }
+        </View>
+      )
+    }
+  
+    const renderPointCell = (row, col, players, cols) => {
+      return (
+        <TextInput  
+          key={Math.random()}
+          style={styles.pointCell}
+          placeholder="" 
+          placeholderTextColor="white"
+          onChangeText={text => {saveInput(text.toString(), row, col, players, cols)}}
+        />
+      )
+    }
+
+
     return (
-      <View>
+      <View key={Math.random()}>
         <View style={{ height: "50%"}}>
           <ScrollView>
             {
               buidTable.map(() => {
-                return this.renderRows(row, col, players1, headers1);
+                return renderRows(row, col, players1, headers1);
               })
             }
         </ScrollView>

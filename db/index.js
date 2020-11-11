@@ -1,10 +1,8 @@
 
 const { searchItem1 } = require('./searchDB')
-const { testUser1, skullKingScorecard, ninesScorecard } = require('./userScorecards')
+const { testUser1 } = require('./userScorecards')
 
 module.exports = {
   searchItem1,
-  testUser1,
-  skullKingScorecard,
-  ninesScorecard
+  testUser1
 }

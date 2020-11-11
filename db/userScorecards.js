@@ -13,7 +13,5 @@ const testUser1 = [
 ]
 
 module.exports = {
-  testUser1,
-  skullKingScorecard,
-  ninesScorecard
+  testUser1
 }

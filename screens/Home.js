@@ -40,9 +40,9 @@ export default function Home({ route, navigation }) {
             <FlatList
               data={testUser1}
               renderItem={({ item }) => (
-                <ScoreCardItem title={item.name} navigation={navigation}/>
+                <ScoreCardItem title={item.title} navigation={navigation}/>
               )}
-              keyExtractor={item => item.name}
+              keyExtractor={item => item.title}
               ItemSeparatorComponent={renderSeparator}
               ListHeaderComponent={renderHeader}
             />

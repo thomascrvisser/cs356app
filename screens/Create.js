@@ -4,6 +4,7 @@ import { ScrollView, TextInput, TouchableHighlight, TouchableOpacity } from 'rea
 import { Counter } from 'react-native-counters'
 import { CheckBox } from 'react-native-elements';
 import { sub } from 'react-native-reanimated';
+import { testUser1 } from '../db/userScorecards';
 
 export default class Create extends React.Component {
   state = {
@@ -27,7 +28,33 @@ export default class Create extends React.Component {
     }
 
     const submit = () => {
-      console.log(this.state);
+      //build header array
+      let headarray = ['Players']
+      for (var key in this.state.columnHeaders){
+        headarray.push(this.state.columnHeaders[key])
+      }
+
+      //build grid
+      let newgrid = [headarray]
+      let i = 0;
+      while( i < this.state.players){
+        let playerrow = ['']
+        let j = 0;
+        while (j < headarray.length-1){
+          playerrow.push(0);
+          j++;
+        }
+        newgrid.push(playerrow);
+        i++;
+      }
+
+      testUser1.push({title: this.state.name,
+                      description: this.state.desc,
+                      players: this.state.players,
+                      headers: headarray,
+                      grid: newgrid
+                    });
+      console.log(testUser1);
     }
 
     const textCheck = () => {
@@ -71,7 +98,7 @@ export default class Create extends React.Component {
          ></TextInput>);
         i++;
       }
-      console.log(this.state);
+      //console.log(this.state);
       return(wtf);
     }
 
@@ -115,9 +142,7 @@ export default class Create extends React.Component {
 
         <TouchableOpacity disabled={this.state.disable} onPress={submit}>
           <Text style={[ this.state.disable ? styles.loginBtnD : styles.loginBtn]}>Submit</Text>
-        </TouchableOpacity>
-        
-        
+        </TouchableOpacity>       
     </View>
     );
   }

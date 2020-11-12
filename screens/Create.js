@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { ScrollView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import { testUser1 } from '../db/userScorecards';
+import { useIsFocused } from '@react-navigation/native'
 
 export default class Create extends React.Component {
   state = {
@@ -15,7 +16,7 @@ export default class Create extends React.Component {
   
 
   render(){
-
+    const { navigate } = this.props.navigation
     const convertText = (text) => {
       var mynum = parseInt(text);
       if (this.state.columnHeaders.length != this.state.columns) {
@@ -52,6 +53,9 @@ export default class Create extends React.Component {
                       grid: newgrid
                     });
       console.log(testUser1);
+      navigate('Home', {
+        screen: 'Home',
+      })
     }
 
     const textCheck = () => {

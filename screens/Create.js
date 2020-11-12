@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { ScrollView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
-import { Counter } from 'react-native-counters'
-import { CheckBox } from 'react-native-elements';
-import { sub } from 'react-native-reanimated';
 import { testUser1 } from '../db/userScorecards';
+import { useIsFocused } from '@react-navigation/native'
 
 export default class Create extends React.Component {
   state = {
@@ -18,6 +16,20 @@ export default class Create extends React.Component {
   
 
   render(){
+    const { navigate } = this.props.navigation
+
+    const isFocused = useIsFocused()
+
+    useEffect(() => {
+        //Update the state you want to be updated
+      this.setState({name: "",
+                      desc: "",
+                      players: 1,
+                      columns: 0,
+                      columnHeaders: {},
+                      disable: true
+      })
+    } , [isFocused])
 
     const convertText = (text) => {
       var mynum = parseInt(text);
@@ -55,6 +67,9 @@ export default class Create extends React.Component {
                       grid: newgrid
                     });
       console.log(testUser1);
+      navigate('Home', {
+        screen: 'Home',
+      })
     }
 
     const textCheck = () => {

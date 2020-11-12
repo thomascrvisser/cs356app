@@ -8,10 +8,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'
-
+import ActiveScoreCard from './screens/ActiveScoreCard';
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
-
 function getHeaderTitle(route) {
     const routeName = route.state
       ? route.state.routes[route.state.index].name
@@ -26,7 +25,6 @@ function getHeaderTitle(route) {
         return 'Create'
     }
   }
-
 function MainTabNavigator() {
     return (
         <Tab.Navigator initialRouteName="Home">
@@ -48,7 +46,6 @@ function MainTabNavigator() {
         </Tab.Navigator>
     )
 }
-
 function MainStackNavigator() {
     return (
       <NavigationContainer>
@@ -72,10 +69,14 @@ function MainStackNavigator() {
                 headerLeft: null
             })}
           />
+          <Stack.Screen
+            name='ActiveScoreCard'
+            component={ActiveScoreCard}
+            options={{ headerShown: true }}
+          />
           {/* To add a screen, put it below. */}
         </Stack.Navigator>
       </NavigationContainer>
     )
 }
-
 export default MainStackNavigator;

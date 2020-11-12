@@ -17,20 +17,6 @@ export default class Create extends React.Component {
 
   render(){
     const { navigate } = this.props.navigation
-
-    const isFocused = useIsFocused()
-
-    useEffect(() => {
-        //Update the state you want to be updated
-      this.setState({name: "",
-                      desc: "",
-                      players: 1,
-                      columns: 0,
-                      columnHeaders: {},
-                      disable: true
-      })
-    } , [isFocused])
-
     const convertText = (text) => {
       var mynum = parseInt(text);
       if (this.state.columnHeaders.length != this.state.columns) {

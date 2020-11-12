@@ -15,18 +15,6 @@ export default class Search extends React.Component {
       data: [],
       value: '',
     };
-
-    this.arrayNew = [
-      { name: 'Skull King' },
-      { name: 'Rummy' },
-      { name: 'Uno' },
-      { name: 'Nines' },
-      { name: 'Hearts' },
-      { name: 'Crazy Eights' },
-      { name: 'War' },
-      { name: 'Canasta' },
-      { name: 'Scum' },
-    ];
   }
 
   renderSeparator = () => {

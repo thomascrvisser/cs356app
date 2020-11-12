@@ -74,7 +74,6 @@ function MainStackNavigator() {
             component={ActiveScoreCard}
             options={{ headerShown: true }}
           />
-          {/* To add a screen, put it below. */}
         </Stack.Navigator>
       </NavigationContainer>
     )

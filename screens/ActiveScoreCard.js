@@ -14,6 +14,14 @@ export default class ActiveScoreCard extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+	// Typical usage (don't forget to compare props):
+	if (this.props.playerCount !== prevProps.playerCount) {
+	  this.fetchData(this.props.// score Card );
+	}
+  }
+
+
   saveInput(input, row, col, players, cols) {
       this.state.gridValues[row][col] = parseInt(input)
       this.calculateTotals(players, cols)
@@ -142,6 +150,8 @@ export default class ActiveScoreCard extends Component {
             <Text>Finished</Text>
           </TouchableOpacity>
         </View>
+
+		<button onClick={() => this.props.scoreCardService.addPlayer()}> Add player</button>
       </View>
     )
   }

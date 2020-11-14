@@ -2,8 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { StyleSheet, Text, View, SafeAreaView, FlatList, Button, TextInput } from 'react-native';
 import { SearchBar, ListItem } from 'react-native-elements';
-import ScoreCardItem, { Card } from '../components/ScoreCardItem';
-import SearchCardItem from '../components/SearchCardItem';
+import {SearchCardItem} from '../components/SearchCardItem';
 import { testUser1 } from '../db/userScorecards';
 import { premadeGames } from '../db/premadeGames';
 

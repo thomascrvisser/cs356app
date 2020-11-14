@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Dimensions, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'
-import ScoreCardItem, { Card } from '../components/ScoreCardItem';
+import { ScoreCardItem } from '../components/ScoreCardItem';
 import { testUser1 } from '../db'
 
 const window = Dimensions.get('window');
 
-export default function Home({ route, navigation }) {
+function Home({ route, navigation }) {
 
   const renderSeparator = () => {
     return (
@@ -26,7 +26,6 @@ export default function Home({ route, navigation }) {
     );
   };
 
-  const { username } = route.params
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -97,3 +96,5 @@ const styles = StyleSheet.create({
     height: 40
   }
 });
+
+export default Home

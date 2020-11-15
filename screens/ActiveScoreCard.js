@@ -1,37 +1,59 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, Alert, TextInput, TouchableOpacity } from 'react-native';
+import { scoreCardService } from '../db'
+import { testUser1 } from '../db'
 
 export default class ActiveScoreCard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      gridValues: [
-        ['Players', 'blue', 'red', 'green', 'yellow', 'Total'],
-        ['Player1', 0, 0, 0, 0, 0],
-        ["Player2", 0, 0, 0, 0, 0],
-        ['Player3', 0, 0, 0, 0, 0]
-      ],
+    this.state= {
+      curScorecard: null
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log('update??')
+    if (this.state.curScorecard.playerCount !== prevState.curScorecard.playerCount) {
+      console.log('search for updated scorecard')
+      const newScorecard = testUser1.find((scorecard) => {
+        if (scorecard.title === this.state.curScorecard.title) {
+            return scorecard
+        }
+      })
+      this.state.curScorecard = newScorecard
+    }
+  }
+  // componentDidUpdate(prevProps) {
+  //   console.log('update??')
+  //   if (this.state.test !== prevProps.test) {
+  //     console.log('search for updated scorecard')
+  //     // this.setState({ curScorecard: testUser1.find((scorecard) => {
+  //     //   if (scorecard.title === title) {
+  //     //      return scorecard
+  //     //   }
+  //     // })
+  //     // })
+  //   }
+  // }
+
   saveInput(input, row, col, players, cols) {
-      this.state.gridValues[row][col] = parseInt(input)
-      this.calculateTotals(players, cols)
+      // this.state.curScorecard.gridValues[row][col] = parseInt(input)
+      // this.calculateTotals(players, cols)
   }
 
-  calculateTotals(players, cols) {
-    let row = 0
-    players.forEach(() => {
-      if (row != 0) {
-        let total = 0
-        for (let col = 1; col < cols.length; col++) {
-          total += this.state.gridValues[row][col]
-        }
-        // Send total somewhere to be displayed
-      }
-      row += 1
-    })
-  }
+  // calculateTotals(players, cols) {
+  //   let row = 0
+  //   players.forEach(() => {
+  //     if (row != 0) {
+  //       let total = 0
+  //       for (let col = 1; col < cols.length; col++) {
+  //         total += this.state.curScorecard.gridValues[row][col]
+  //       }
+  //       // Send total somewhere to be displayed
+  //     }
+  //     row += 1
+  //   })
+  // }
 
   renderRows(row, col, players, colHeaders) {
     return ( 
@@ -112,16 +134,16 @@ export default class ActiveScoreCard extends Component {
   }
 
   render() {
-    const { players, headers, grid } = this.props.route.params
+    const { players, headers, grid, scorecard } = this.props.route.params
     const { navigation } = this.props.navigation
     const buidTable = ['']
-    this.state.gridValues = grid
-    let headers1 = headers
+    this.state.curScorecard = {...scorecard}
+    let headers1 = scorecard.roundNames
     let row = -1
     let col = 0
     let players1 = []
 
-    for (let i = 0; i < players; i++) {
+    for (let i = 0; i < scorecard.playerCount; i++) {
       players1.push('')
     }
     players1.unshift('')
@@ -140,6 +162,24 @@ export default class ActiveScoreCard extends Component {
         <View style={styles.finishedBtnArray}>
           <TouchableOpacity style={styles.finishedBtn} onPress={() => this.props.navigation.navigate('Home')}>
             <Text>Finished</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.finishedBtnArray}>
+          <TouchableOpacity style={styles.finishedBtn} onPress={() => { 
+            let newPlayerCount = scoreCardService.addPlayer(this.state.curScorecard)
+            this.setState({playerCount: newPlayerCount})
+            alert('Player added!')
+          }}>
+            <Text>Add Player</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.finishedBtnArray}>
+          <TouchableOpacity style={styles.finishedBtn} onPress={() => {
+            // this.setState({test: true})
+            scoreCardService.removePlayer(this.state.curScorecard)
+            alert('Player removed!')
+          }}>
+            <Text>Remove Player</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -11,9 +11,10 @@ const ScoreCardItem = ({ title, navigation  }) => {
         })
         if (scorecard) {
             navigation.navigate('ActiveScoreCard', {
-                players: scorecard.players,
-                headers: scorecard.headers,
-                grid: scorecard.grid
+                players: scorecard.playerCount,
+                headers: scorecard.roundNames,
+                grid: scorecard.grid,
+                scorecard: scorecard
             })
         } else {
             Alert('There is an error with the scorecard.')

@@ -1,68 +1,48 @@
-  
-  const createInitialScoreCard  = (title, description, playerCount = 1, roundCount = 1, roundNames = ['1']) => {
-    return {
-      title,
-      description,
-      grid: buildGrid(playerCount, roundCount, roundNames),
-      playerCount,
-      roundCount,
-      roundNames
+
+class scoreCardService {
+  constructor(title, description, playerCount = 1, roundCount = 1, roundNames = ['1']) {
+    this.title = title,
+    this.description = description,
+    this.grid = buildGrid(playerCount, roundCount, roundNames),
+    this.playerCount = playerCount,
+    this.roundCount = roundCount,
+    this.roundNames = roundNames,
+    this.playerNames = []
+  }
+
+  addPlayer() {
+    this.playerCount += 1
+    return this.playerCount
+  }
+
+  removePlayer() {
+    if (this.playerCount > 1) {
+      this.playerCount -= 1
     }
+    return this.playerCount
   }
 
-  const addPlayer = (scorecard) => {
-    console.log('adding a player')
-    console.log(scorecard.playerCount)
-    scorecard.playerCount += 1
-    console.log(scorecard.playerCount)
-    console.log('finished adding players')
-    return scorecard.playerCount
+  saveGridValue(row, col, value) {
+    this.grid[row][col] = value
+    console.log(this.grid)
   }
 
-  const removePlayer = (scorecard) => {
-    if (scorecard.playerCount > 1) {
-      scorecard.playerCount -= 1
-    }
-  }
+}
 
-  const addRound = (scorecard) => {
-    scorecard.roundCount += 1
-  }
-
-  const buildGrid = (playerCount, roundCount, roundNames) => {
-    let grid = []
-    for (let row = 0; row <= playerCount; row++) {
-      grid.push([])
-      for (let col = 0; col < roundCount; col++) {
-        if (row == 0) {
-          grid[row].push(roundNames[col])
-        } else {
-          grid[row].push(0)
-        }
+const buildGrid = (playerCount, roundCount, roundNames) => {
+  let grid = []
+  for (let row = 0; row <= playerCount; row++) {
+    grid.push([])
+    for (let col = 0; col < roundCount; col++) {
+      if (row == 0) {
+        grid[row].push(roundNames[col])
+      } else {
+        grid[row].push(0)
       }
     }
-
-    return grid
   }
 
-
-const scoreCardService = () => {
-  return {
-    title: null,
-    description: null,
-    grid: null,
-    playerCount: null,
-    roundCount: null,
-    playerNames: null,
-    roundNames: null
-  }
+  return grid
 }
 
-scoreCardService.createInitialScoreCard = createInitialScoreCard
-scoreCardService.addPlayer = addPlayer
-scoreCardService.addRound = addRound
-scoreCardService.removePlayer = removePlayer
-
-export {
-  scoreCardService
-}
+export { scoreCardService }

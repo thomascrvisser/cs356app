@@ -1,24 +1,11 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import { testUser1 } from '../db'
 
 const ScoreCardItem = ({ title, navigation  }) => {
     const onPress = () => {
-        const scorecard = testUser1.find((scorecard) => { 
-            if (scorecard.title === title) {
-                return scorecard
-            }
+        navigation.navigate('ActiveScoreCard', {
+            title: title
         })
-        if (scorecard) {
-            navigation.navigate('ActiveScoreCard', {
-                players: scorecard.playerCount,
-                headers: scorecard.roundNames,
-                grid: scorecard.grid,
-                scorecard: scorecard
-            })
-        } else {
-            Alert('There is an error with the scorecard.')
-        }
     }
 
     return (

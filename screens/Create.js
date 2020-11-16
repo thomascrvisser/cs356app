@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { ScrollView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import { testUser1, scoreCardService } from '../db';
-import { useIsFocused } from '@react-navigation/native'
 
 export default class Create extends React.Component {
   state = {
@@ -32,40 +31,16 @@ export default class Create extends React.Component {
         headarray.push(this.state.columnHeaders[key])
       }
 
-      //build grid
-      let newgrid = [headarray]
-      let i = 0;
-      while( i < this.state.players){
-        let playerrow = ['']
-        let j = 0;
-        while (j < headarray.length-1){
-          playerrow.push(0);
-          j++;
-        }
-        newgrid.push(playerrow);
-        i++;
-      }
-
-      let newScorecard = scoreCardService.createInitialScoreCard(
+      let newScorecard = new scoreCardService(
         this.state.name,
         this.state.desc,
         this.state.players,
         headarray.length,
         headarray
       )
-      console.log('The new scorecard: ')
-      console.log(newScorecard)
-      // testUser1.push({
-      //   title: this.state.name,
-      //   description: this.state.desc,
-      //   playerCount: this.state.players,
-      //   roundCount: headarray.length,
-      //   roundNames: headarray,
-      //   grid: newgrid
-      // });
+
       testUser1.push(newScorecard)
-      console.log('Test User Scorecards')
-      console.log(testUser1)
+
       navigate('Home', {
         screen: 'Home',
       })

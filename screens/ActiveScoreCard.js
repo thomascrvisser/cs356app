@@ -12,16 +12,13 @@ export default class ActiveScoreCard extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('did update')
     if (this.state.playerCount !== prevState.playerCount) {
 
     }
   }
 
   saveInput(input, row, col, players, cols, scorecard) {
-    console.log('saving..')
-    console.log(parseInt(input))
-    scorecard.saveGridValue(row,col,parseInt(input))
+    // scorecard.saveGridValue(row,col,input)
       // this.state.curScorecard.gridValues[row][col] = parseInt(input)
       // this.calculateTotals(players, cols)
   }
@@ -112,7 +109,8 @@ export default class ActiveScoreCard extends Component {
           style={styles.pointCell}
           placeholder="" 
           placeholderTextColor="white"
-          onChangeText={text => {this.saveInput(text.toString(), row, col, players, cols)}}
+          keyboardType={'numbers-and-punctuation'}
+          onChangeText={text => {this.saveInput(text, row, col, players, cols)}}
         />
       )
     }
@@ -121,15 +119,12 @@ export default class ActiveScoreCard extends Component {
   render() {
     const { title } = this.props.route.params
     const { navigation } = this.props.navigation
-    // console.log('find this game: ' + title)
+
     let scorecard = testUser1.find((scorecard) => {
       if (scorecard.title === title) {
-        // console.log('found!')
         return scorecard
       }
     })
-    // console.log(scorecard)
-    // this.setState({curScorecard: scorecard})
     const buidTable = ['']
     let headers1 = scorecard.roundNames
     let row = -1
@@ -160,19 +155,15 @@ export default class ActiveScoreCard extends Component {
         <View style={styles.finishedBtnArray}>
           <TouchableOpacity style={styles.finishedBtn} onPress={() => { 
             let newPlayerCount = scorecard.addPlayer()
-            console.log(newPlayerCount)
             this.setState({playerCount: newPlayerCount})
-            alert('Player added!' + newPlayerCount)
           }}>
             <Text>Add Player</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.finishedBtnArray}>
           <TouchableOpacity style={styles.finishedBtn} onPress={() => {
-            // this.setState({test: true})
             let newPlayerCount = scorecard.removePlayer()
             this.setState({playerCount: newPlayerCount})
-            alert('Player removed!')
           }}>
             <Text>Remove Player</Text>
           </TouchableOpacity>

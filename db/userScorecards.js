@@ -1,4 +1,4 @@
-// import { scoreCardService } from './scorecard'
+import { scoreCardService } from './index'
 
 // const defaultSkullKing = new scoreCardService(
 //   'Skull King',
@@ -9,5 +9,6 @@
 // )
 
 const testUser1 = []
+// testUser1.push(defaultSkullKing)
 
 export { testUser1 }

@@ -1,39 +1,43 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, Alert, TextInput, TouchableOpacity } from 'react-native';
+import { testUser1 } from '../db'
 
 export default class ActiveScoreCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gridValues: [
-        ['Players', 'blue', 'red', 'green', 'yellow', 'Total'],
-        ['Player1', 0, 0, 0, 0, 0],
-        ["Player2", 0, 0, 0, 0, 0],
-        ['Player3', 0, 0, 0, 0, 0]
-      ],
+      curScorecard: null,
+      playerCount: 1
     }
   }
 
-  saveInput(input, row, col, players, cols) {
-      this.state.gridValues[row][col] = parseInt(input)
-      this.calculateTotals(players, cols)
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.playerCount !== prevState.playerCount) {
+
+    }
   }
 
-  calculateTotals(players, cols) {
-    let row = 0
-    players.forEach(() => {
-      if (row != 0) {
-        let total = 0
-        for (let col = 1; col < cols.length; col++) {
-          total += this.state.gridValues[row][col]
-        }
-        // Send total somewhere to be displayed
-      }
-      row += 1
-    })
+  saveInput(input, row, col, players, cols, scorecard) {
+    // scorecard.saveGridValue(row,col,input)
+      // this.state.curScorecard.gridValues[row][col] = parseInt(input)
+      // this.calculateTotals(players, cols)
   }
 
-  renderRows(row, col, players, colHeaders) {
+  // calculateTotals(players, cols) {
+  //   let row = 0
+  //   players.forEach(() => {
+  //     if (row != 0) {
+  //       let total = 0
+  //       for (let col = 1; col < cols.length; col++) {
+  //         total += this.state.curScorecard.gridValues[row][col]
+  //       }
+  //       // Send total somewhere to be displayed
+  //     }
+  //     row += 1
+  //   })
+  // }
+
+  renderRows(row, col, players, colHeaders, scorecard) {
     return ( 
       <View>
         <ScrollView horizontal={true}>
@@ -45,7 +49,7 @@ export default class ActiveScoreCard extends Component {
                   return this.renderHeaderRow(row, col, colHeaders)
                 } else {
                   col = -1
-                  return this.renderPointRow(row , col, players, colHeaders)
+                  return this.renderPointRow(row , col, players, colHeaders, scorecard)
                 }
               })
             }
@@ -74,20 +78,20 @@ export default class ActiveScoreCard extends Component {
     )
   }
 
-  renderPointRow(row, col, players, cols) {
+  renderPointRow(row, col, players, cols, scorecard) {
     return (
       <View key={Math.random()} style={styles.pointRow}>
         {
           cols.map(() => {
             col += 1
-            return this.renderPointCell(row, col, players, cols)
+            return this.renderPointCell(row, col, players, cols, scorecard)
           })
         }
       </View>
     )
   }
 
-  renderPointCell(row, col, players, cols) {
+  renderPointCell(row, col, players, cols, scorecard) {
     if (col === 0) {
       return (
         <TextInput  
@@ -95,7 +99,7 @@ export default class ActiveScoreCard extends Component {
           style={styles.pointCellPlayer}
           placeholder="" 
           placeholderTextColor="white"
-          onChangeText={text => {this.saveInput(text.toString(), row, col, players, cols)}}
+          onChangeText={text => {this.saveInput(text.toString(), row, col, players, cols, scorecard)}}
         />
       )
     } else {
@@ -105,23 +109,29 @@ export default class ActiveScoreCard extends Component {
           style={styles.pointCell}
           placeholder="" 
           placeholderTextColor="white"
-          onChangeText={text => {this.saveInput(text.toString(), row, col, players, cols)}}
+          keyboardType={'numbers-and-punctuation'}
+          onChangeText={text => {this.saveInput(text, row, col, players, cols)}}
         />
       )
     }
   }
 
   render() {
-    const { players, headers, grid } = this.props.route.params
+    const { title } = this.props.route.params
     const { navigation } = this.props.navigation
+
+    let scorecard = testUser1.find((scorecard) => {
+      if (scorecard.title === title) {
+        return scorecard
+      }
+    })
     const buidTable = ['']
-    this.state.gridValues = grid
-    let headers1 = headers
+    let headers1 = scorecard.roundNames
     let row = -1
     let col = 0
     let players1 = []
 
-    for (let i = 0; i < players; i++) {
+    for (let i = 0; i < scorecard.playerCount; i++) {
       players1.push('')
     }
     players1.unshift('')
@@ -132,7 +142,7 @@ export default class ActiveScoreCard extends Component {
           <ScrollView>
             {
               buidTable.map(() => {
-                return this.renderRows(row, col, players1, headers1);
+                return this.renderRows(row, col, players1, headers1, scorecard);
               })
             }
         </ScrollView>
@@ -140,6 +150,22 @@ export default class ActiveScoreCard extends Component {
         <View style={styles.finishedBtnArray}>
           <TouchableOpacity style={styles.finishedBtn} onPress={() => this.props.navigation.navigate('Home')}>
             <Text>Finished</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.finishedBtnArray}>
+          <TouchableOpacity style={styles.finishedBtn} onPress={() => { 
+            let newPlayerCount = scorecard.addPlayer()
+            this.setState({playerCount: newPlayerCount})
+          }}>
+            <Text>Add Player</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.finishedBtnArray}>
+          <TouchableOpacity style={styles.finishedBtn} onPress={() => {
+            let newPlayerCount = scorecard.removePlayer()
+            this.setState({playerCount: newPlayerCount})
+          }}>
+            <Text>Remove Player</Text>
           </TouchableOpacity>
         </View>
       </View>

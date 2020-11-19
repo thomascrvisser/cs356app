@@ -5,20 +5,9 @@ import { testUser1 } from '../db'
 
 const ScoreCardItem = ({ title, navigation  }) => {
     const onPress = () => {
-        const scorecard = testUser1.find((scorecard) => { 
-            if (scorecard.title === title) {
-                return scorecard
-            }
+        navigation.navigate('ActiveScoreCard', {
+            title: title
         })
-        if (scorecard) {
-            navigation.navigate('ActiveScoreCard', {
-                players: scorecard.players,
-                headers: scorecard.headers,
-                grid: scorecard.grid
-            })
-        } else {
-            Alert('There is an error with the scorecard.')
-        }
     }
 
     return (

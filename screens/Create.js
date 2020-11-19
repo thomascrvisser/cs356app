@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { ScrollView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
-import { testUser1 } from '../db/userScorecards';
-import { useIsFocused } from '@react-navigation/native'
+import { testUser1, scoreCardService } from '../db';
 
 export default class Create extends React.Component {
   state = {
@@ -32,27 +31,16 @@ export default class Create extends React.Component {
         headarray.push(this.state.columnHeaders[key])
       }
 
-      //build grid
-      let newgrid = [headarray]
-      let i = 0;
-      while( i < this.state.players){
-        let playerrow = ['']
-        let j = 0;
-        while (j < headarray.length-1){
-          playerrow.push(0);
-          j++;
-        }
-        newgrid.push(playerrow);
-        i++;
-      }
+      let newScorecard = new scoreCardService(
+        this.state.name,
+        this.state.desc,
+        this.state.players,
+        headarray.length,
+        headarray
+      )
 
-      testUser1.push({title: this.state.name,
-                      description: this.state.desc,
-                      players: this.state.players,
-                      headers: headarray,
-                      grid: newgrid
-                    });
-      console.log(testUser1);
+      testUser1.push(newScorecard)
+
       navigate('Home', {
         screen: 'Home',
       })
@@ -118,14 +106,6 @@ export default class Create extends React.Component {
             style={styles.inputcontainer} 
             placeholder="Enter the rules of the game..."
             onChangeText={text => this.setState({desc:text})}></TextInput>
-        </View>
-        <View style={styles.pad}>
-          <Text style={styles.title} ># of Players</Text>
-          <TextInput 
-            style={styles.numbercontainer}
-            keyboardType="numeric"
-            placeholder="1"
-            onChangeText={text => this.setState({players: parseInt(text)})}></TextInput>
         </View>
         <View style={styles.pad}>
           <Text style={styles.title} ># of Columns (the number of rounds)</Text>

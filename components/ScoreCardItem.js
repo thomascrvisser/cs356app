@@ -1,5 +1,6 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { testUser1 } from '../db'
 
 const ScoreCardItem = ({ title, navigation  }) => {
@@ -23,7 +24,12 @@ const ScoreCardItem = ({ title, navigation  }) => {
     return (
         <View style={styles.card} >
             <View style={styles.cardContent}>
-                <Text onPress={onPress} style={styles.cardTitleText}>{ title }</Text>
+                <Text style={styles.cardTitleText}>{ title }</Text>
+                <Icon onPress={onPress} style={styles.iconContent} 
+                      name={'play'}
+                      size={30}
+                      type='font-awesome' 
+                      color='#2B2D2F'/>
             </View>
         </View>
     )
@@ -45,11 +51,16 @@ const styles = StyleSheet.create({
     },
     cardContent: {
         marginHorizontal: 18,
-        marginVertical: 10
+        marginVertical: 15,
+        flexDirection: "row",
+        justifyContent:'space-between'
     },
     cardTitleText: {
         fontSize: 30
-    }
+    },
+    iconContent: {
+        paddingTop: 5
+     }
 })
 
 export { ScoreCardItem }

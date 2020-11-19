@@ -3,6 +3,7 @@ import { Settings, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { State } from 'react-native-gesture-handler';
 import { testUser1 } from '../db/userScorecards';
+import { scoreCardService, scorecardService } from '../db/index'
 
 
 const SearchCardItem = ({ title, navigation  }) => {
@@ -29,23 +30,32 @@ const SearchCardItem = ({ title, navigation  }) => {
     }
 
     const onPress = () => {
+        //add the scorecard if it's not in the user's list
         if (!itemInUserList()){
-            testUser1.push({title: title,
-                description: "from search",
-                players: 4,
-                headers: ['Players','1','2','3','4','5','6','7','8','9','10'],
-                grid: [
-                ['Players','1','2','3','4','5','6','7','8','9','10'],
-                ['',0,0,0,0,0,0,0,0,0,0],
-                ['',0,0,0,0,0,0,0,0,0,0],
-                ['',0,0,0,0,0,0,0,0,0,0],
-                ['',0,0,0,0,0,0,0,0,0,0],
-                ]
-            })
+            //TODO:
+            //we'll need this to draw from our premade scorecards
+            // var scorecardToAdd = new scorecardService(
+            //     title, 
+            //     'from search',
+            //     4, 
+            //     11, 
+            //     ['Players','1','2','3','4','5','6','7','8','9','10']
+            // )
+            var scorecardToAdd = {title: title}
+            testUser1.push(scorecardToAdd)
+            console.log(testUser1)
             console.log('setting home')
             setHome(1)
         }
-        console.log(home)
+        else {
+            //remove the scorecard if it is in the user's list
+            for (var i = 0; i < testUser1.length; i++) {
+                if (title == testUser1[i]['title']){
+                    testUser1.splice(i, 1)
+                    setHome(0)
+                }
+            }
+        }
     }
 
     return (

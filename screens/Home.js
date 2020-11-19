@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Dimensions, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'
 import { ScoreCardItem } from '../components/ScoreCardItem';
-import { testUser1 } from '../db'
+import { testUser1 } from '../db/index'
 
 const window = Dimensions.get('window');
 

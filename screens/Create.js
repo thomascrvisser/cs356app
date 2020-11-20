@@ -26,7 +26,7 @@ export default class Create extends React.Component {
 
     const submit = () => {
       //build header array
-      let headarray = ['Players']
+      let headarray = []
       for (var key in this.state.columnHeaders){
         headarray.push(this.state.columnHeaders[key])
       }

@@ -24,9 +24,12 @@ class scoreCardService {
 
   saveGridValue(row, col, value) {
     this.grid[row][col] = value
-    console.log(this.grid)
+    // console.log(this.grid)
   }
 
+  updatePlayerName(row, name) {
+    this.playerNames[row] = name
+  }
 }
 
 const buildGrid = (playerCount, roundCount, roundNames) => {

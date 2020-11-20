@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, Alert, TextInput, TouchableOpacity } from 'react-native';
+import { Value } from 'react-native-reanimated';
 import { testUser1 } from '../db'
 
 export default class ActiveScoreCard extends Component {
@@ -18,9 +19,21 @@ export default class ActiveScoreCard extends Component {
   }
 
   saveInput(input, row, col, players, cols, scorecard) {
+    // console.log(row)
+    // console.log(col)
+    // console.log(scorecard.playerNames)
+    // scorecard.updatePlayerName(row, input)
     // scorecard.saveGridValue(row,col,input)
       // this.state.curScorecard.gridValues[row][col] = parseInt(input)
       // this.calculateTotals(players, cols)
+  }
+
+  savePlayerName(input, row, col, players, cols, scorecard) {
+    // console.log(row)
+    // console.log(scorecard.playerNames)
+    scorecard.playerNames[row] = input
+    // console.log(scorecard.playerNames)
+    this.forceUpdate()
   }
 
   // calculateTotals(players, cols) {
@@ -37,9 +50,21 @@ export default class ActiveScoreCard extends Component {
   //   })
   // }
 
-  renderRows(row, col, players, colHeaders, scorecard) {
+  renderRows(row, playerRow, col, players, colHeaders, scorecard) {
     return ( 
-      <View>
+      <View style={{flexDirection: 'row'}}>
+        <View>
+          {
+            players.map(() => {
+              playerRow += 1
+              if (playerRow == 0) {
+                return this.renderHeaderCell('Players')
+              } else {
+                return this.renderPlayerNameCell(playerRow, col, players, 1, scorecard)
+              }
+            })
+          }
+        </View>
         <ScrollView horizontal={true}>
           <View style={styles.grid}>
             {
@@ -59,12 +84,25 @@ export default class ActiveScoreCard extends Component {
     );
   }
 
+  renderPlayerNameCell(row, col, players, cols, scorecard) {
+    return (
+      <TextInput  
+        key={Math.random()}
+        style={styles.pointCell}
+        placeholder=''
+        placeholderTextColor="white"
+        defaultValue={scorecard.playerNames[row]}
+        returnKeyType="done"
+        onSubmitEditing={(e) => {this.savePlayerName(e.nativeEvent.text, row, col, players, cols, scorecard)}}
+      />
+    )
+  }
+
   renderHeaderRow(row, col, colHeaders) {
     return (
       <View key={Math.random()} style={styles.headerRow}>
         {
           colHeaders.map((header) => {
-            col += 1
             return this.renderHeaderCell(header)
           })
         }
@@ -92,28 +130,16 @@ export default class ActiveScoreCard extends Component {
   }
 
   renderPointCell(row, col, players, cols, scorecard) {
-    if (col === 0) {
-      return (
-        <TextInput  
-          key={Math.random()}
-          style={styles.pointCellPlayer}
-          placeholder="" 
-          placeholderTextColor="white"
-          onChangeText={text => {this.saveInput(text.toString(), row, col, players, cols, scorecard)}}
-        />
-      )
-    } else {
-      return (
-        <TextInput  
-          key={Math.random()}
-          style={styles.pointCell}
-          placeholder="" 
-          placeholderTextColor="white"
-          keyboardType={'numbers-and-punctuation'}
-          onChangeText={text => {this.saveInput(text, row, col, players, cols)}}
-        />
-      )
-    }
+    return (
+      <TextInput
+        key={Math.random()}
+        style={styles.pointCell}
+        placeholder="" 
+        placeholderTextColor="white"
+        keyboardType={'numbers-and-punctuation'}
+        onSubmitEditing={(e) => {this.saveInput(e.nativeEvent.text, row, col, players, cols, scorecard)}}
+      />
+    )
   }
 
   render() {
@@ -126,47 +152,69 @@ export default class ActiveScoreCard extends Component {
       }
     })
     const buidTable = ['']
-    let headers1 = scorecard.roundNames
+    let headers = scorecard.roundNames
     let row = -1
     let col = 0
-    let players1 = []
+    let players = []
+    let playerRow = -1
 
     for (let i = 0; i < scorecard.playerCount; i++) {
-      players1.push('')
+      players.push('')
     }
-    players1.unshift('')
+    players.unshift('')
 
     return (
-      <View>
-        <View style={{ height: "70%"}}>
+      <View style={{display: 'flex', height: '100%'}}>
+        <View style={styles.scoreCardBox}>
           <ScrollView>
             {
               buidTable.map(() => {
-                return this.renderRows(row, col, players1, headers1, scorecard);
+                return this.renderRows(row, playerRow, col, players, headers, scorecard);
               })
             }
-        </ScrollView>
+          </ScrollView>
         </View>
-        <View style={styles.finishedBtnArray}>
-          <TouchableOpacity style={styles.finishedBtn} onPress={() => this.props.navigation.navigate('Home')}>
-            <Text>Finished</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.finishedBtnArray}>
-          <TouchableOpacity style={styles.finishedBtn} onPress={() => { 
-            let newPlayerCount = scorecard.addPlayer()
-            this.setState({playerCount: newPlayerCount})
-          }}>
-            <Text>Add Player</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.finishedBtnArray}>
-          <TouchableOpacity style={styles.finishedBtn} onPress={() => {
-            let newPlayerCount = scorecard.removePlayer()
-            this.setState({playerCount: newPlayerCount})
-          }}>
-            <Text>Remove Player</Text>
-          </TouchableOpacity>
+        <View style={{height: '50%', flexDirection: 'column'}}>
+          <View style={{height: '20%', flexDirection: 'row', justifyContent: 'space-between', padding: 10}}>
+            <View style={styles.finishedBtnArray}>
+              <TouchableOpacity style={styles.finishedBtn} onPress={() => { 
+                let newPlayerCount = scorecard.addPlayer()
+                this.setState({playerCount: newPlayerCount})
+              }}>
+                <Text>Add Player</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.finishedBtnArray}>
+              <TouchableOpacity style={styles.finishedBtn} onPress={() => {
+                let newPlayerCount = scorecard.removePlayer()
+                this.setState({playerCount: newPlayerCount})
+              }}>
+                <Text>Remove Player</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.leaderBoardBox}>
+            <Text style={{fontSize: 20, fontWeight: 'bold'}}>LeaderBoard</Text>
+            <ScrollView>
+              {
+                scorecard.playerNames.map((player) => {
+                  return (<Text>{player}</Text>)
+                })
+              }
+            </ScrollView>
+          </View>
+
+          <View style={styles.finishedBtnArea}>
+            <TouchableOpacity style={styles.finishedBtn} onPress={() => {
+              scorecard.playerNames = []
+              scorecard.playerCount = 1
+              this.props.navigation.navigate('Home')
+            }}>
+              <Text>Finished</Text>
+            </TouchableOpacity>
+          </View>
+          
         </View>
       </View>
     )
@@ -175,11 +223,15 @@ export default class ActiveScoreCard extends Component {
   
 const styles = StyleSheet.create({
   headerRow: { height: 40, backgroundColor: '#E7E6E1', flexDirection: "row", justifyContent: "center"},
-  headerCell: {height: 70, width: 80, backgroundColor: '#1f51be', color: 'white', textAlign: "center"},
+  headerCell: {height: 40, width: 80, backgroundColor: '#1f51be', color: 'white', textAlign: "center", fontSize: 20},
   pointRow: { height: 50, backgroundColor: '#8ba9ec', flexDirection: "row", justifyContent: "center"},
-  pointCell: {width: 80, backgroundColor: '#8ba9ec', color: 'white', textAlign: "center", textDecorationStyle: "solid", fontSize: 30, borderWidth: 1},
+  pointCell: {height: 50, width: 80, backgroundColor: '#8ba9ec', color: 'white', textAlign: "center", textDecorationStyle: "solid", fontSize: 20, borderWidth: 1},
   pointCellPlayer: {width: 80, backgroundColor: '#8ba9ec', color: 'white', textAlign: "center", textDecorationStyle: "solid", fontSize: 20, borderWidth: 1},
   grid: { flexDirection: 'column' },
-  finishedBtnArray: {flexDirection: 'row', justifyContent: 'center', marginTop: 20 },
-  finishedBtn: {backgroundColor: 'lightblue', borderWidth: 2, borderRadius: 10, fontSize: 50, fontWeight: 'bold', padding: 7}
+  scoreCardBox: { height: '50%', borderColor: 'white', borderWidth: 1, overflow: 'hidden', shadowColor: 'black', shadowRadius: 10, shadowOpacity: 1, backgroundColor: 'transparent'},
+  leaderBoardBox: {height: '60%', width: '75%', alignSelf: 'center', backgroundColor: 'white', alignItems: 'center', borderWidth: 2, borderRadius: 5, shadowRadius: 15, shadowColor: 'silver', shadowOpacity: 1},
+  addPlayerBtnArea: {flexDirection: 'row', justifyContent: 'center', padding: 15, marginHorizontal: 20},
+  removePlayerBtnArea: {flexDirection: 'row', justifyContent: 'center', padding: 15},
+  finishedBtnArea: {flexDirection: 'row', justifyContent: 'center', padding: 15},
+  finishedBtn: {backgroundColor: 'lightblue', borderWidth: 2, borderRadius: 10, fontSize: 50, fontWeight: 'bold', padding: 7, justifyContent: 'center'}
 }) 

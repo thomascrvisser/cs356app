@@ -140,8 +140,8 @@ export default class ActiveScoreCard extends Component {
 
   renderRows(row, playerRow, col) {
     return ( 
-      <View style={{flexDirection: 'row'}}>
-        <View>
+      <View key={Math.random()} style={{flexDirection: 'row'}}>
+        <View key={Math.random()}>
           {
             this.state.playerNames.map(() => {
               playerRow += 1
@@ -153,8 +153,8 @@ export default class ActiveScoreCard extends Component {
             })
           }
         </View>
-        <ScrollView horizontal={true}>
-          <View style={styles.grid}>
+        <ScrollView key={Math.random()} horizontal={true}>
+          <View key={Math.random()} style={styles.grid}>
             {
               this.state.playerNames.map(() => {
                 row += 1

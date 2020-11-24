@@ -6,8 +6,10 @@ import { appScorecardList } from './db'
 
 export default function App() {
   const initialList = initializeScorecardList()
-  initialList.map((game) => appScorecardList.push(game))
-
+  if (!appScorecardList || !appScorecardList.length) {
+    initialList.map((game) => appScorecardList.push(game))
+  }
+ 
   return (
     <Navigator/>
   );

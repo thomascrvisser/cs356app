@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Settings, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { State } from 'react-native-gesture-handler';
-import { testUser1 } from '../db/userScorecards';
+import { testUser1, appScorecardList } from '../db';
 
 
 const SearchCardItem = ({ title, navigation  }) => {
@@ -30,18 +30,8 @@ const SearchCardItem = ({ title, navigation  }) => {
 
     const onPress = () => {
         if (!itemInUserList()){
-            testUser1.push({title: title,
-                description: "from search",
-                players: 4,
-                headers: ['Players','1','2','3','4','5','6','7','8','9','10'],
-                grid: [
-                ['Players','1','2','3','4','5','6','7','8','9','10'],
-                ['',0,0,0,0,0,0,0,0,0,0],
-                ['',0,0,0,0,0,0,0,0,0,0],
-                ['',0,0,0,0,0,0,0,0,0,0],
-                ['',0,0,0,0,0,0,0,0,0,0],
-                ]
-            })
+            const scoreCardData = appScorecardList.find((scorecard) => scorecard.title == title)
+            testUser1.push(scoreCardData)
             console.log('setting home')
             setHome(1)
         }

@@ -1,0 +1,4 @@
+
+const appScorecardList = []
+
+export { appScorecardList }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { ScrollView, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
-import { testUser1, scoreCardService } from '../db';
+import { testUser1 } from '../db';
+import { scoreCardService } from '../models/scorecard';
 
 export default class Create extends React.Component {
   state = {

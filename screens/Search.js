@@ -3,8 +3,7 @@ import { render } from 'react-dom';
 import { StyleSheet, Text, View, SafeAreaView, FlatList, Button, TextInput } from 'react-native';
 import { SearchBar, ListItem } from 'react-native-elements';
 import {SearchCardItem} from '../components/SearchCardItem';
-import { testUser1 } from '../db/userScorecards';
-import { premadeGames } from '../db/premadeGames';
+import { appScorecardList } from '../db';
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -30,7 +29,7 @@ export default class Search extends React.Component {
   };
 
   searchItems = text => {
-    let newData = premadeGames.filter(item => {
+    let newData = appScorecardList.filter(item => {
       const itemData = `${item.title.toUpperCase()}`;
       const textData = text.toUpperCase();
     if(text.length >0 ){

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, Dimensions, FlatList } from 'reac
 import { LinearGradient } from 'expo-linear-gradient'
 import { ScoreCardItem } from '../components/ScoreCardItem';
 import { testUser1 } from '../db'
+import { generalStyling } from '../helpers/styles'
 
 const window = Dimensions.get('window');
 
@@ -28,12 +29,6 @@ function Home({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={['steelblue', 'lightgray']}
-        style={styles.container}
-        start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
-        >
           <SafeAreaView>
             {/* Add the list here, replace it with the TEXT field */}
             <FlatList
@@ -46,13 +41,13 @@ function Home({ route, navigation }) {
               ListHeaderComponent={renderHeader}
             />
           </SafeAreaView>
-        </LinearGradient>
       </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    ...generalStyling.bgScreen,
     alignItems: 'center',
     justifyContent: 'center',
     width: "100%"
@@ -89,8 +84,7 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
   },
   scorecardHeader: {
-    fontSize: 30,
-    color: "white",
+    ...generalStyling.headers,
     textAlign: "center",
     justifyContent: 'center',
     height: 40

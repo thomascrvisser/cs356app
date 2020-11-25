@@ -3,7 +3,7 @@ import { Settings, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { State } from 'react-native-gesture-handler';
 import { testUser1, appScorecardList } from '../db';
-
+import { generalStyling } from '../helpers/styles'
 
 const SearchCardItem = ({ title, navigation  }) => {
     const [home, setHome] = useState(null);
@@ -54,31 +54,17 @@ const SearchCardItem = ({ title, navigation  }) => {
 
 const styles = StyleSheet.create({
     card: {
-        borderRadius:6,
-        elevation: 3,
-        backgroundColor: "lightgray",
-        shadowOffset: {width: 1, height: 1},
-        shadowColor: '#333',
-        shadowOpacity: 0.3,
-        shadowRadius: 2,
-        width: 300,
-        height: 70,
-        marginHorizontal: 20,
-        marginVertical: 10
-        
-      },
+        ...generalStyling.cardStyle,
+        alignSelf: 'center'
+    },
     cardContent: {
-        marginHorizontal: 18,
-        marginVertical: 15,
-        flexDirection: "row",
-        justifyContent:'space-between'
-        
+        ...generalStyling.cardContent
     },
     iconContent: {
-       paddingTop: 5
+       ...generalStyling.iconContent
     },
     cardTitleText: {
-        fontSize: 30
+        ...generalStyling.cardTitleText
     }
   }); 
 

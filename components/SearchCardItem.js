@@ -34,6 +34,10 @@ const SearchCardItem = ({ title, navigation  }) => {
             testUser1.push(scoreCardData)
             console.log('setting home')
             setHome(1)
+        } else {
+            var index = testUser1.findIndex(x => x.title == title)
+            testUser1.splice(index, 1)
+            setHome(0)
         }
         console.log(home)
     }

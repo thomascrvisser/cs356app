@@ -4,7 +4,7 @@ import { ScrollView, TextInput, TouchableHighlight, TouchableOpacity } from 'rea
 import InputSpinner from 'react-native-input-spinner';
 import { testUser1 } from '../db';
 import { scoreCardService } from '../models/scorecard';
-
+import { generalStyling } from '../helpers/styles';
 
 export default class Create extends React.Component {
   state = {
@@ -86,6 +86,7 @@ export default class Create extends React.Component {
           key = {j}
           style={styles.colContainer} 
           placeholder={j}
+          placeholderTextColor='gray'
           onChangeText={text => updatecolstate(text, j)}
          ></TextInput>);
         i++;
@@ -95,43 +96,51 @@ export default class Create extends React.Component {
 
     return (
         <View style={styles.container}>
-            <View style={styles.pad}>
-              <Text style={styles.title}>Name of Game</Text>
+            <View style={styles.inputArea}>
+              <Text style={styles.formTitle}>Name of Game</Text>
               <TextInput 
-                style={styles.inputcontainer} 
+                style={styles.formInputBox} 
                 placeholder="Enter the game name..."
+                placeholderTextColor='gray'
                 onChangeText={text => this.setState({name:text})}></TextInput>
             </View>
-            <View style={styles.pad}>
-              <Text style={styles.title}>Description</Text>
+            <View style={styles.formArea}>
+              <Text style={styles.formTitle}>Description</Text>
               <TextInput 
-                style={styles.inputcontainer} 
+                style={styles.formInputBox} 
                 placeholder="Enter rules or general info about the game..."
+                placeholderTextColor='gray'
                 onChangeText={text => this.setState({desc:text})}></TextInput>
             </View>
-            <View style={styles.pad}>
-              <Text style={styles.title} ># of Rounds</Text>
+            <View style={styles.formArea}>
+              <Text style={generalStyling.formTitle} ># of Rounds</Text>
               <InputSpinner
                 max={20}
                 min={1}
                 step={1}
-                color={"#fb5b5a"}
+                color={"#E4B607"}
                 value={this.state.columns}
+                textColor={'white'}
+                fontSize={30}
                 onChange={(num) => {
                   this.setState({columns:num});
                 }}
               />
             </View>
-            <Text>Customize Round Names</Text>
-            <ScrollView horizontal={true}>
-              <View style={{flexDirection:'row', flexWrap: 'wrap', alignItems:"flex-start"}}>
-                {getCols()}
-              </View>
-            </ScrollView>
-
-            <TouchableOpacity disabled={this.state.disable} onPress={submit}>
-              <Text style={styles.loginBtn}>Submit</Text>
-            </TouchableOpacity>       
+            <View style={{...styles.formArea, height: 250}}>
+              <Text style={generalStyling.formTitle}>Customize Round Names</Text>
+              <Text style={{...generalStyling.formTitle, fontSize: 12}}>(Optional- Defaults to Numbers)</Text>
+              <ScrollView horizontal={true}>
+                <View style={{flexDirection:'row', flexWrap: 'wrap', alignItems:"flex-start"}}>
+                  {getCols()}
+                </View>
+              </ScrollView>
+            </View>
+            <View style={styles.submitBtnArea}>
+              <TouchableOpacity disabled={this.state.disable} onPress={submit} style={styles.submitBtn}>
+                <Text style={{fontSize: 20}}>Submit</Text>
+              </TouchableOpacity>
+            </View>
         </View>
       
     );
@@ -140,55 +149,38 @@ export default class Create extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    ...generalStyling.bgScreen,
     alignItems: "center",
     width: "100%",
-    alignSelf:'baseline'
+    height: '100%',
+    alignSelf:'baseline',
+    paddingTop: 10,
+    paddingBottom: 10
   },
-  pad: {
-    paddingBottom: 15
+  formArea: {
+    ...generalStyling.formArea
   },
-  title: {
-   paddingBottom: 5
+  formTitle: {
+    ...generalStyling.formTitle
   },
-  numbercontainer: {
-    borderLeftWidth: 2,
-    borderRightWidth: 2,
-    borderTopWidth: 2,
-    borderBottomWidth: 2,
-    height: 40,
-    textAlign: 'center'
-  },
-  inputcontainer: {
-    borderLeftWidth: 2,
-    borderRightWidth: 2,
-    borderTopWidth: 2,
-    borderBottomWidth: 2,
-
-    width:300,
-    height: 40,
+  formInputBox: {
+    ...generalStyling.formInputBox
   },
   colContainer: {
-    borderLeftWidth: 2,
-    borderRightWidth: 2,
-    borderTopWidth: 2,
-    borderBottomWidth: 2,
+    ...generalStyling.formInputBox,
     marginLeft: 5,
     marginRight: 5,
     width:100,
     height: 40,
     textAlign: 'center'
   },
-  loginBtn:{
-    width:"80%",
-    backgroundColor:"#fb5b5a",
-    borderRadius:25,
-    height:50,
-    alignItems:"center",
-    justifyContent:"center",
-    width:300,
-    marginTop:40,
-    marginBottom:10
+  submitBtnArea:{
+    ...generalStyling.buttonArea
+  },
+  submitBtn: {
+    ...generalStyling.buttonContent,
+    backgroundColor: 'white',
+    width: 150,
+    alignItems: 'center'
   }
 });

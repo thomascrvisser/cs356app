@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, Alert, TextInput, TouchableOpacity } from 'react-native';
 import { testUser1 } from '../db'
+import { generalStyling } from '../helpers/styles'
 
 export default class ActiveScoreCard extends Component {
   constructor(props) {
@@ -255,13 +256,13 @@ export default class ActiveScoreCard extends Component {
         </View>
         <View style={{height: '50%', flexDirection: 'column'}}>
           <View style={{height: '20%', flexDirection: 'row', justifyContent: 'space-between', padding: 10}}>
-            <View style={styles.finishedBtnArray}>
-              <TouchableOpacity style={styles.finishedBtn} onPress={this.addPlayer}>
+            <View style={generalStyling.buttonArea}>
+              <TouchableOpacity style={styles.addPlayerBtn} onPress={this.addPlayer}>
                 <Text>Add Player</Text>
               </TouchableOpacity>
             </View>
-            <View style={styles.finishedBtnArray}>
-              <TouchableOpacity style={styles.finishedBtn} onPress={this.removePlayer}>
+            <View style={generalStyling.buttonArea}>
+              <TouchableOpacity style={styles.removePlayerBtn} onPress={this.removePlayer}>
                 <Text>Remove Player</Text>
               </TouchableOpacity>
             </View>
@@ -278,9 +279,9 @@ export default class ActiveScoreCard extends Component {
             </ScrollView>
           </View>
 
-          <View style={styles.finishedBtnArea}>
+          <View style={{...generalStyling.buttonArea, padding: 10}}>
             <TouchableOpacity style={styles.finishedBtn} onPress={this.finishGame}>
-              <Text>Finished</Text>
+              <Text style={{fontSize:20}}>Finished</Text>
             </TouchableOpacity>
           </View>
           
@@ -299,8 +300,14 @@ const styles = StyleSheet.create({
   grid: { flexDirection: 'column' },
   scoreCardBox: { height: '50%', borderColor: 'white', borderWidth: 1, overflow: 'hidden', shadowColor: 'black', shadowRadius: 10, shadowOpacity: 1, backgroundColor: 'transparent'},
   leaderBoardBox: {height: '60%', width: '75%', alignSelf: 'center', backgroundColor: 'white', alignItems: 'center', borderWidth: 2, borderRadius: 5, shadowRadius: 15, shadowColor: 'silver', shadowOpacity: 1},
-  addPlayerBtnArea: {flexDirection: 'row', justifyContent: 'center', padding: 15, marginHorizontal: 20},
-  removePlayerBtnArea: {flexDirection: 'row', justifyContent: 'center', padding: 15},
-  finishedBtnArea: {flexDirection: 'row', justifyContent: 'center', padding: 15},
-  finishedBtn: {backgroundColor: 'lightblue', borderWidth: 2, borderRadius: 10, fontSize: 50, fontWeight: 'bold', padding: 7, justifyContent: 'center'}
+  addPlayerBtn: {
+    ...generalStyling.buttonContent,
+    marginHorizontal: 20
+  },
+  removePlayerBtn: {
+    ...generalStyling.buttonContent
+  },
+  finishedBtn: {
+    ...generalStyling.buttonContent
+  }
 }) 

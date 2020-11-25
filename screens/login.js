@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { generalStyling } from '../helpers/styles'
 
 export default class App extends React.Component {
   state = {
@@ -46,45 +47,21 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#003f5c',
-    alignItems: 'center',
-    justifyContent: 'center',
+    ...generalStyling.entryScreens
   },
   logo:{
-    fontWeight:"bold",
-    fontSize:50,
-    color:"#fb5b5a",
-    marginBottom:40
+    ...generalStyling.entryLogo
   },
   inputView:{
-    width:"80%",
-    backgroundColor:"#465881",
-    borderRadius:25,
-    height:50,
-    marginBottom:20,
-    justifyContent:"center",
-    padding:20
+    ...generalStyling.inputView
   },
   inputText:{
-    height:50,
-    color:"white"
-  },
-  forgot:{
-    color:"white",
-    fontSize:11
+    ...generalStyling.inputText
   },
   loginBtn:{
-    width:"80%",
-    backgroundColor:"#fb5b5a",
-    borderRadius:25,
-    height:50,
-    alignItems:"center",
-    justifyContent:"center",
-    marginTop:40,
-    marginBottom:10
+    ...generalStyling.loginBtn
   },
   loginText:{
-    color:"white"
+    ...generalStyling.loginText
   }
 });

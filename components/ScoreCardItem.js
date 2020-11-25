@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { testUser1 } from '../db'
+import { generalStyling } from '../helpers/styles'
 
 const ScoreCardItem = ({ title, navigation  }) => {
     const onPress = () => {
@@ -26,30 +27,17 @@ const ScoreCardItem = ({ title, navigation  }) => {
 
 const styles = StyleSheet.create({
     card: {
-      borderRadius:6,
-      elevation: 3,
-      backgroundColor: "lightgray",
-      shadowOffset: {width: 1, height: 1},
-      shadowColor: '#333',
-      shadowOpacity: 0.3,
-      shadowRadius: 2,
-      width: 300,
-      height: 70,
-      marginHorizontal: 4,
-      marginVertical: 10,
+        ...generalStyling.cardStyle
     },
     cardContent: {
-        marginHorizontal: 18,
-        marginVertical: 15,
-        flexDirection: "row",
-        justifyContent:'space-between'
-    },
-    cardTitleText: {
-        fontSize: 30
+        ...generalStyling.cardContent
     },
     iconContent: {
-        paddingTop: 5
-     }
+       ...generalStyling.iconContent
+    },
+    cardTitleText: {
+        ...generalStyling.cardTitleText
+    }
 })
 
 export { ScoreCardItem }

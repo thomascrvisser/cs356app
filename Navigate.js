@@ -9,43 +9,47 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'
 import ActiveScoreCard from './screens/ActiveScoreCard';
+
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
+
 function getHeaderTitle(route) {
-    const routeName = route.state
-      ? route.state.routes[route.state.index].name
-      : route.params?.screen || 'Home'
-  
-    switch (routeName) {
-      case 'Home':
-        return 'Home'
-      case 'Search':
-        return 'Search'
-      case 'Create':
-        return 'Create'
-    }
+  const routeName = route.state
+    ? route.state.routes[route.state.index].name
+    : route.params?.screen || 'Home'
+
+  switch (routeName) {
+    case 'Home':
+      return 'Home'
+    case 'Search':
+      return 'Search'
+    case 'Create':
+      return 'Create'
   }
-function MainTabNavigator() {
-    return (
-        <Tab.Navigator initialRouteName="Home">
-            <Tab.Screen name="Search" component={Search} options={{
-                tabBarIcon: ({ color, size }) => (
-                    <Ionicons name='ios-search' color={color} size={size} />
-                )
-            }}/>
-            <Tab.Screen name="Home" component={Home} options={{
-                tabBarIcon: ({ color, size }) => (
-                    <Ionicons name='ios-home' color={color} size={size} />
-                )
-            }}/>
-            <Tab.Screen name="Create" component={Create} options={{
-                tabBarIcon: ({ color, size }) => (
-                    <Ionicons name='ios-create' color={color} size={size} />
-                )
-            }}/>
-        </Tab.Navigator>
-    )
 }
+
+function MainTabNavigator() {
+  return (
+      <Tab.Navigator initialRouteName="Home">
+          <Tab.Screen name="Search" component={Search} options={{
+              tabBarIcon: ({ color, size }) => (
+                  <Ionicons name='ios-search' color={color} size={size} />
+              )
+          }}/>
+          <Tab.Screen name="Home" component={Home} options={{
+              tabBarIcon: ({ color, size }) => (
+                  <Ionicons name='ios-home' color={color} size={size} />
+              )
+          }}/>
+          <Tab.Screen name="Create" component={Create} options={{
+              tabBarIcon: ({ color, size }) => (
+                  <Ionicons name='ios-create' color={color} size={size} />
+              )
+          }}/>
+      </Tab.Navigator>
+  )
+}
+
 function MainStackNavigator() {
     return (
       <NavigationContainer>
@@ -78,4 +82,5 @@ function MainStackNavigator() {
       </NavigationContainer>
     )
 }
+
 export default MainStackNavigator;

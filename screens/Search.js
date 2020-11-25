@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, SafeAreaView, FlatList, Button, TextInput } fro
 import { SearchBar, ListItem } from 'react-native-elements';
 import {SearchCardItem} from '../components/SearchCardItem';
 import { appScorecardList } from '../db';
+import { generalStyling } from '../helpers/styles'
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -83,17 +84,33 @@ export default class Search extends React.Component {
 
   render() {
     return (
-      <SafeAreaView>
-        <FlatList
-          data={this.state.data}
-          renderItem={({ item }) => (
-            <SearchCardItem title={item.title} navigation={this.props.navigation}/>
-          )}
-          keyExtractor={item => item.title}
-          ItemSeparatorComponent={this.renderSeparator}
-          ListHeaderComponent={this.renderHeader}
-        />
-      </SafeAreaView>
+      <View style={styles.container}>
+        <SafeAreaView>
+          <FlatList
+            style={styles.list}
+            data={this.state.data}
+            renderItem={({ item }) => (
+              <SearchCardItem title={item.title} navigation={this.props.navigation}/>
+            )}
+            keyExtractor={item => item.title}
+            ItemSeparatorComponent={this.renderSeparator}
+            ListHeaderComponent={this.renderHeader}
+            stickyHeaderIndices={[0]}
+          />
+        </SafeAreaView>
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+    ...generalStyling.bgScreen,
+    justifyContent: 'center',
+ 
+  },
+  list: {
+    height: '100%',
+  }
+})

@@ -42,7 +42,6 @@ function Home({ route, navigation }) {
                 <ScoreCardItem title={item.title} navigation={navigation}/>
               )}
               keyExtractor={item => item.title}
-              ItemSeparatorComponent={renderSeparator}
               ListHeaderComponent={renderHeader}
             />
           </SafeAreaView>

@@ -47,7 +47,7 @@ const generalStyling = StyleSheet.create({
     color:"white"
   },
   cardStyle: {
-    backgroundColor: '#FFFFEC',
+    backgroundColor: 'white',
     borderRadius: 15,
     elevation: 3,
     shadowOffset: { width: 1, height: 1 },
@@ -86,7 +86,28 @@ const generalStyling = StyleSheet.create({
   },
   buttonText: {
     color: 'black'
-  }
+  },
+  formArea: {
+    paddingBottom: 15,
+    alignItems: 'center'
+  },
+  formTitle: {
+    color: 'white',
+    paddingBottom: 5,
+    alignSelf: 'center',
+    fontSize: 20
+  },
+  formInputBox: {
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    width:300,
+    height: 40,
+    backgroundColor: 'white',
+    color: 'black',
+    paddingLeft: 5
+  },
 })
 
 export { generalStyling }

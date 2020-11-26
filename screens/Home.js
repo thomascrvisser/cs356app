@@ -7,41 +7,70 @@ import { generalStyling } from '../helpers/styles'
 
 const window = Dimensions.get('window');
 
-function Home({ route, navigation }) {
+export default class Home extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      scorecardList: []
+    }
+  }
 
-  const renderSeparator = () => {
+  componentDidMount() {
+    if (this.state.scorecardList.length != testUser1.length) {
+      console.log('change...')
+      this.setState({
+        scorecardList: testUser1
+      })
+    }
+    
+  }
+
+  componentWillUnmount() {
+    console.log('unmounting home screen')
+  }
+
+  render() {
+    const { navigation } = this.props.navigation
+
+    const renderSeparator = () => {
+      return (
+        <View
+          style={{
+            height: 1,
+            width: '100%',
+            backgroundColor: '#CED0CE',
+          }}
+        />
+      );
+    };
+
+    const renderHeader = () => {
+      return (
+        <Text style={styles.scorecardHeader}>ScoreCards</Text>
+      );
+    };
+
+    const deleteItem = (index) => {
+      testUser1.splice(index, 1)
+      this.setState({scorecardList: testUser1})
+    }
+
     return (
-      <View
-        style={{
-          height: 1,
-          width: '100%',
-          backgroundColor: '#CED0CE',
-        }}
-      />
+      <View style={styles.container}>
+            <SafeAreaView>
+              {/* Add the list here, replace it with the TEXT field */}
+                <FlatList
+                  data={testUser1}
+                  renderItem={({ item, index }) => (
+                    <ScoreCardItem title={item.title} navigation={navigation} handleDelete={() => deleteItem(index)}/>
+                  )}
+                  keyExtractor={item => item.title}
+                  ListHeaderComponent={renderHeader}
+                />
+            </SafeAreaView>
+        </View>
     );
-  };
-
-  const renderHeader = () => {
-    return (
-      <Text style={styles.scorecardHeader}>ScoreCards</Text>
-    );
-  };
-
-  return (
-    <View style={styles.container}>
-          <SafeAreaView>
-            {/* Add the list here, replace it with the TEXT field */}
-            <FlatList
-              data={testUser1}
-              renderItem={({ item }) => (
-                <ScoreCardItem title={item.title} navigation={navigation}/>
-              )}
-              keyExtractor={item => item.title}
-              ListHeaderComponent={renderHeader}
-            />
-          </SafeAreaView>
-      </View>
-  );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -89,5 +118,3 @@ const styles = StyleSheet.create({
     height: 40
   }
 });
-
-export default Home

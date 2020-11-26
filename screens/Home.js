@@ -30,8 +30,6 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const { navigation } = this.props.navigation
-
     const renderSeparator = () => {
       return (
         <View
@@ -62,7 +60,7 @@ export default class Home extends React.Component {
                 <FlatList
                   data={testUser1}
                   renderItem={({ item, index }) => (
-                    <ScoreCardItem title={item.title} navigation={navigation} handleDelete={() => deleteItem(index)}/>
+                    <ScoreCardItem title={item.title} navigation={this.props.navigation} handleDelete={() => deleteItem(index)}/>
                   )}
                   keyExtractor={item => item.title}
                   ListHeaderComponent={renderHeader}

@@ -141,8 +141,8 @@ export default class ActiveScoreCard extends Component {
 
   renderRows(row, playerRow, col) {
     return ( 
-      <View key={Math.random()} style={{flexDirection: 'row'}}>
-        <View key={Math.random()}>
+      <View key={`${row}`} style={{flexDirection: 'row'}}>
+        <View key={`${row} + ${col}`}>
           {
             this.state.playerNames.map(() => {
               playerRow += 1
@@ -154,8 +154,8 @@ export default class ActiveScoreCard extends Component {
             })
           }
         </View>
-        <ScrollView key={Math.random()} horizontal={true}>
-          <View key={Math.random()} style={styles.grid}>
+        <ScrollView horizontal={true}>
+          <View key={`${row} + ${col}`} style={styles.grid}>
             {
               this.state.playerNames.map(() => {
                 row += 1
@@ -176,7 +176,7 @@ export default class ActiveScoreCard extends Component {
   renderPlayerNameCell(row, col) {
     return (
       <TextInput  
-        key={Math.random()}
+        key={`${row} + ${col}`}
         style={styles.pointCell}
         placeholder=''
         placeholderTextColor="white"
@@ -189,7 +189,7 @@ export default class ActiveScoreCard extends Component {
 
   renderHeaderRow() {
     return (
-      <View key={Math.random()} style={styles.headerRow}>
+      <View key={'headerrow'} style={styles.headerRow}>
         {
           this.state.roundNames.map((header) => {
             return this.renderHeaderCell(header)
@@ -201,13 +201,13 @@ export default class ActiveScoreCard extends Component {
 
   renderHeaderCell(headerText) {
     return (
-      <Text key={Math.random()} style={styles.headerCell}>{headerText}</Text>
+      <Text key={headerText} style={styles.headerCell}>{headerText}</Text>
     )
   }
 
   renderPointRow(row, col) {
     return (
-      <View key={Math.random()} style={styles.pointRow}>
+      <View key={`${row} + ${col}`} style={styles.pointRow}>
         {
           this.state.roundNames.map(() => {
             col += 1
@@ -221,7 +221,7 @@ export default class ActiveScoreCard extends Component {
   renderPointCell(row, col) {
     return (
       <TextInput
-        key={Math.random()}
+        key={`${row} + ${col}`}
         style={styles.pointCell}
         placeholder="" 
         placeholderTextColor="white"
@@ -273,7 +273,7 @@ export default class ActiveScoreCard extends Component {
             <ScrollView>
               {
                 this.state.leaderBoard.map((player) => {
-                  return (<Text>{player.name}: {player.score}</Text>)
+                  return (<Text key={player.name} >{player.name}: {player.score}</Text>)
                 })
               }
             </ScrollView>

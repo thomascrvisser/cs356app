@@ -146,8 +146,9 @@ export default class ActiveScoreCard extends Component {
           {
             this.state.playerNames.map(() => {
               playerRow += 1
+              col += 1
               if (playerRow == 0) {
-                return this.renderHeaderCell('Players')
+                return this.renderHeaderCell('Players', col)
               } else {
                 return this.renderPlayerNameCell(playerRow, col)
               }
@@ -188,20 +189,22 @@ export default class ActiveScoreCard extends Component {
   }
 
   renderHeaderRow() {
+    let colCount = -1
     return (
       <View key={'headerrow'} style={styles.headerRow}>
         {
           this.state.roundNames.map((header) => {
-            return this.renderHeaderCell(header)
+            colCount += 1
+            return this.renderHeaderCell(header, colCount)
           })
         }
       </View>
     )
   }
 
-  renderHeaderCell(headerText) {
+  renderHeaderCell(headerText, colCount) {
     return (
-      <Text key={headerText} style={styles.headerCell}>{headerText}</Text>
+      <Text key={`${headerText}${colCount}`} style={styles.headerCell}>{headerText}</Text>
     )
   }
 

@@ -16,6 +16,7 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
+    console.log('mounting')
     if (this.state.scorecardList.length != testUser1.length) {
       console.log('change...')
       this.setState({

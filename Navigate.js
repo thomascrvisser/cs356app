@@ -34,13 +34,22 @@ function MainTabNavigator() {
           <Tab.Screen name="Search" component={Search} options={{
               tabBarIcon: ({ color, size }) => (
                   <Ionicons name='ios-search' color={color} size={size} />
-              )
-          }}/>
+              ) 
+          }}
+          />
           <Tab.Screen name="Home" component={Home} options={{
               tabBarIcon: ({ color, size }) => (
                   <Ionicons name='ios-home' color={color} size={size} />
               )
-          }}/>
+          }}
+          listeners={({ navigation, route }) =>  ({
+            tabPress: e => {
+              console.log('you pressed home')
+              console.log(e.data)
+              navigation.replace('Home')
+            }
+          })}
+          />
           <Tab.Screen name="Create" component={Create} options={{
               tabBarIcon: ({ color, size }) => (
                   <Ionicons name='ios-create' color={color} size={size} />

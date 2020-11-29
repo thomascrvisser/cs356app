@@ -146,9 +146,8 @@ export default class ActiveScoreCard extends Component {
           {
             this.state.playerNames.map(() => {
               playerRow += 1
-              col += 1
               if (playerRow == 0) {
-                return this.renderHeaderCell('Players', col)
+                return this.renderHeaderCell('Players')
               } else {
                 return this.renderPlayerNameCell(playerRow, col)
               }

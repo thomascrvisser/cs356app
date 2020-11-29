@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, Alert, TextInput, TouchableOpacity } from 'react-native';
 import { testUser1 } from '../db'
 import { generalStyling } from '../helpers/styles'
+import { Icon } from 'react-native-elements';
 
 export default class ActiveScoreCard extends Component {
   constructor(props) {
@@ -175,15 +176,17 @@ export default class ActiveScoreCard extends Component {
 
   renderPlayerNameCell(row, col) {
     return (
+      <View styles={{}}>
       <TextInput  
         key={Math.random()}
-        style={styles.pointCell}
+        style={{...styles.pointCell, fontWeight: 'bold'}}
         placeholder=''
         placeholderTextColor="white"
         defaultValue={this.state.playerNames[row]}
         returnKeyType="done"
         onSubmitEditing={(e) => {this.savePlayerName(e.nativeEvent.text, row, col)}}
       />
+      </View>
     )
   }
 
@@ -200,9 +203,26 @@ export default class ActiveScoreCard extends Component {
   }
 
   renderHeaderCell(headerText) {
-    return (
-      <Text key={Math.random()} style={styles.headerCell}>{headerText}</Text>
-    )
+    // if (headerText == 'Players') {
+    //   return (
+    //     <View style={{}}>
+    //     <Text key={Math.random()} style={{...styles.headerCell, fontSize: 15, paddingTop: -10, borderColor: 'white', borderWidth: 1}}>{`${headerText}\n`}<Icon 
+    //       style={{marginLeft: 35, paddingTop: 5}}
+    //       name={'arrow-down'}
+    //       size={15}
+    //       type='font-awesome' 
+    //       color='white'/></Text>
+    //     </View>
+    //   )
+    // } else {
+      return (
+        <View>
+          {/* <Text key={Math.random()} style={styles.headerCell}>Rounds</Text> */}
+          <Text key={Math.random()} style={{...styles.headerCell, borderColor: 'white', borderWidth: 1}}>{headerText}</Text>
+        </View>
+      )
+    // }
+    
   }
 
   renderPointRow(row, col) {
@@ -244,7 +264,7 @@ export default class ActiveScoreCard extends Component {
     let playerRow = -1
 
     return (
-      <View style={{display: 'flex', height: '100%'}}>
+      <View style={styles.container}>
         <View style={styles.scoreCardBox}>
           <ScrollView>
             {
@@ -292,13 +312,15 @@ export default class ActiveScoreCard extends Component {
 }
   
 const styles = StyleSheet.create({
-  headerRow: { height: 40, backgroundColor: '#E7E6E1', flexDirection: "row", justifyContent: "center"},
-  headerCell: {height: 40, width: 80, backgroundColor: '#1f51be', color: 'white', textAlign: "center", fontSize: 20},
+  container: { display: 'flex', height: '100%', ...generalStyling.bgScreen },
+  headerRow: { height: 40, flexDirection: "row", justifyContent: "center"},
+  headerCell: {height: 40, width: 80, backgroundColor: '#122732', color: 'white', textAlign: "center", fontSize: 20, paddingTop: 5},
   pointRow: { height: 50, backgroundColor: '#8ba9ec', flexDirection: "row", justifyContent: "center"},
-  pointCell: {height: 50, width: 80, backgroundColor: '#8ba9ec', color: 'white', textAlign: "center", textDecorationStyle: "solid", fontSize: 20, borderWidth: 1},
+  pointCell: {height: 50, width: 80, backgroundColor: 'white', color: 'black', textAlign: "center", textDecorationStyle: "solid", fontSize: 20, borderWidth: 1},
   pointCellPlayer: {width: 80, backgroundColor: '#8ba9ec', color: 'white', textAlign: "center", textDecorationStyle: "solid", fontSize: 20, borderWidth: 1},
+  playerNameCell: {height: 50, width: 80, backgroundColor: 'white', color: 'black', textAlign: "center", textDecorationStyle: "solid", fontSize: 20},
   grid: { flexDirection: 'column' },
-  scoreCardBox: { height: '50%', borderColor: 'white', borderWidth: 1, overflow: 'hidden', shadowColor: 'black', shadowRadius: 10, shadowOpacity: 1, backgroundColor: 'transparent'},
+  scoreCardBox: { height: '50%', borderColor: 'white', borderWidth: 1, overflow: 'hidden', shadowColor: 'black', shadowRadius: 10, shadowOpacity: 1, backgroundColor: 'transparent' },
   leaderBoardBox: {height: '60%', width: '75%', alignSelf: 'center', backgroundColor: 'white', alignItems: 'center', borderWidth: 2, borderRadius: 5, shadowRadius: 15, shadowColor: 'silver', shadowOpacity: 1},
   addPlayerBtn: {
     ...generalStyling.buttonContent,

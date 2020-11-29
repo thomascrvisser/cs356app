@@ -179,7 +179,6 @@ const styles = StyleSheet.create({
   },
   submitBtn: {
     ...generalStyling.buttonContent,
-    backgroundColor: 'white',
     width: 150,
     alignItems: 'center'
   }

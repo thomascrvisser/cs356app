@@ -76,7 +76,7 @@ const generalStyling = StyleSheet.create({
     justifyContent: 'center'
   },
   buttonContent: {
-    backgroundColor: '#A6E5FF',
+    backgroundColor: '#E4B607',
     color: 'white',
     borderWidth: 2,
     borderRadius: 10,

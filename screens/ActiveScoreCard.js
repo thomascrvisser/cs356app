@@ -227,7 +227,6 @@ export default class ActiveScoreCard extends Component {
         style={styles.pointCell}
         placeholder="" 
         placeholderTextColor="white"
-        defaultValue={(this.state.grid[row][col]).toString()}
         keyboardType={'numbers-and-punctuation'}
         onSubmitEditing={(e) => {this.saveInputValue(e.nativeEvent.text, row, col)}}
       />

@@ -178,11 +178,11 @@ export default class ActiveScoreCard extends Component {
       <TextInput  
         key={`${row} + ${col}`}
         style={styles.pointCell}
-        placeholder=''
+        placeholder={`Player ${row}`}
         placeholderTextColor="white"
-        defaultValue={this.state.playerNames[row]}
         returnKeyType="done"
         onSubmitEditing={(e) => {this.savePlayerName(e.nativeEvent.text, row, col)}}
+        onEndEditing={(e) => {this.savePlayerName(e.nativeEvent.text, row, col)}}
       />
     )
   }
@@ -229,6 +229,7 @@ export default class ActiveScoreCard extends Component {
         placeholderTextColor="white"
         keyboardType={'numbers-and-punctuation'}
         onSubmitEditing={(e) => {this.saveInputValue(e.nativeEvent.text, row, col)}}
+        onEndEditing={(e) => {this.saveInputValue(e.nativeEvent.text, row, col)}}
       />
     )
   }

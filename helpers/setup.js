@@ -36,7 +36,21 @@ const initializeScorecardList = () => {
     7,
     ['1', '2', '3', '4', '5', '6', '7']
   )
-  return [game1, game2, game3, game4, game5]
+  let game6 = new scoreCardService(
+    'Crazy Eights',
+    'This is the card game Crazy Eights, 5 rounds!',
+    1,
+    5,
+    ['1', '2', '3', '4', '5']
+  )
+  let game7 = new scoreCardService(
+    'Speed',
+    'This is the card game Speed, 4 rounds!',
+    1,
+    4,
+    ['1', '2', '3', '4']
+  )
+  return [game1, game2, game3, game4, game5, game6, game7]
 }
 
 module.exports = { initializeScorecardList }

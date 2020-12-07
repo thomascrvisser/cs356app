@@ -43,8 +43,8 @@ export default class ActiveScoreCard extends Component {
       grid: scorecard.grid,
       roundCount: scorecard.roundCount,
       roundNames: scorecard.roundNames,
-      playerCount: scorecard.playerCount,
-      playerNames: scorecard.playerNames,
+      playerCount: 1,
+      playerNames: ['', ''],
       leaderBoard: []
     })
   }

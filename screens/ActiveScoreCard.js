@@ -12,7 +12,7 @@ export default class ActiveScoreCard extends Component {
       grid: null,
       roundCount: 1,
       roundNames: ['1'],
-      playerCount: 1,
+      playerCount: 0,
       playerNames: [],
       leaderBoard: []
     }
@@ -40,17 +40,16 @@ export default class ActiveScoreCard extends Component {
     this.setState({
       curScoreCard: scorecard,
       title: scorecard.title,
-      grid: scorecard.grid,
+      grid: scorecard.grid.slice(),
       roundCount: scorecard.roundCount,
       roundNames: scorecard.roundNames,
-      playerCount: 1,
-      playerNames: ['', ''],
+      playerCount: 0,
+      playerNames: [],
       leaderBoard: []
     })
   }
 
   addPlayer(){
-    // console.log('addPlayer')
     let newPlayerCount = this.state.playerCount + 1
     let newGrid = this.state.grid
     let newPlayerNames = this.state.playerNames
@@ -85,7 +84,6 @@ export default class ActiveScoreCard extends Component {
   }
 
   saveInputValue(input, row, col) {
-    // console.log('save Input value')
     let updatedGrid = this.state.grid
     updatedGrid[row][col] = input
     let leaderBoard = this.state.leaderBoard
@@ -103,7 +101,6 @@ export default class ActiveScoreCard extends Component {
   }
 
   savePlayerName(input, row, col) {
-    // console.log('save player name')
     let newPlayers = this.state.playerNames
     newPlayers[row] = input
     let leaderBoard = this.state.leaderBoard
@@ -130,12 +127,10 @@ export default class ActiveScoreCard extends Component {
   }
 
   finishGame() {
-    // console.log(this.state.curScoreCard.defaultGrid)
-    // this.setState({
-    //   grid: this.state.curScoreCard.defaultGrid,
-    //   playerCount: this.state.curScoreCard.defaultGrid.length-1,
-    //   playerNames: ['Players', '']
-    // })
+    const winner = this.state.leaderBoard[0]
+    if (winner) {
+      Alert.alert('Winner!!!', `${winner.name} wins with ${winner.score} points`)
+    }
     this.props.navigation.navigate('Home')
   }
 
@@ -144,7 +139,7 @@ export default class ActiveScoreCard extends Component {
       <View key={`${row}`} style={{flexDirection: 'row'}}>
         <View key={`${row} + ${col}`}>
           {
-            this.state.playerNames.map(() => {
+            this.state.grid.map(() => {
               playerRow += 1
               if (playerRow == 0) {
                 return this.renderHeaderCell('Players')
@@ -157,7 +152,7 @@ export default class ActiveScoreCard extends Component {
         <ScrollView horizontal={true}>
           <View key={`${row} + ${col}`} style={styles.grid}>
             {
-              this.state.playerNames.map(() => {
+              this.state.grid.map(() => {
                 row += 1
                 if (row == 0) {
                   return this.renderHeaderRow()

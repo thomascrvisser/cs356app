@@ -174,7 +174,7 @@ export default class ActiveScoreCard extends Component {
         key={`${row} + ${col}`}
         style={styles.pointCell}
         placeholder={`Player ${row}`}
-        placeholderTextColor="white"
+        placeholderTextColor="gray"
         returnKeyType="done"
         onSubmitEditing={(e) => {this.savePlayerName(e.nativeEvent.text, row, col)}}
         onEndEditing={(e) => {this.savePlayerName(e.nativeEvent.text, row, col)}}
@@ -255,12 +255,12 @@ export default class ActiveScoreCard extends Component {
           <View style={{height: '20%', flexDirection: 'row', justifyContent: 'space-between', padding: 10}}>
             <View style={generalStyling.buttonArea}>
               <TouchableOpacity style={styles.addPlayerBtn} onPress={this.addPlayer}>
-                <Text>Add Player</Text>
+                <Text style={{color:'white'}}>Add Player</Text>
               </TouchableOpacity>
             </View>
             <View style={generalStyling.buttonArea}>
               <TouchableOpacity style={styles.removePlayerBtn} onPress={this.removePlayer}>
-                <Text>Remove Player</Text>
+                <Text style={{color:'white'}}>Remove Player</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -278,7 +278,7 @@ export default class ActiveScoreCard extends Component {
 
           <View style={{...generalStyling.buttonArea, padding: 10}}>
             <TouchableOpacity style={styles.finishedBtn} onPress={this.finishGame}>
-              <Text style={{fontSize:20}}>Finished</Text>
+              <Text style={{fontSize:20, color:'white'}}>Finish</Text>
             </TouchableOpacity>
           </View>
           
@@ -289,14 +289,14 @@ export default class ActiveScoreCard extends Component {
 }
   
 const styles = StyleSheet.create({
-  headerRow: { height: 40, backgroundColor: '#E7E6E1', flexDirection: "row", justifyContent: "center"},
-  headerCell: {height: 40, width: 80, backgroundColor: '#1f51be', color: 'white', textAlign: "center", fontSize: 20},
-  pointRow: { height: 50, backgroundColor: '#8ba9ec', flexDirection: "row", justifyContent: "center"},
-  pointCell: {height: 50, width: 80, backgroundColor: '#8ba9ec', color: 'white', textAlign: "center", textDecorationStyle: "solid", fontSize: 20, borderWidth: 1},
-  pointCellPlayer: {width: 80, backgroundColor: '#8ba9ec', color: 'white', textAlign: "center", textDecorationStyle: "solid", fontSize: 20, borderWidth: 1},
+  headerRow: { height: 40, backgroundColor: '#3C81B9', flexDirection: "row", justifyContent: "center"},
+  headerCell: {height: 40, width: 80, backgroundColor: '#3C81B9', color: 'white', textAlign: "center", fontSize: 20},
+  pointRow: { height: 50, backgroundColor: '#f5f5f5', flexDirection: "row", justifyContent: "center"},
+  pointCell: {height: 50, width: 80, backgroundColor: '#f5f5f5', color: 'black', textAlign: "center", textDecorationStyle: "solid", fontSize: 20, borderWidth: 1},
+  pointCellPlayer: {width: 80, backgroundColor: '#646464', color: 'black', textAlign: "center", textDecorationStyle: "solid", fontSize: 20, borderWidth: 1},
   grid: { flexDirection: 'column' },
-  scoreCardBox: { height: '50%', borderColor: 'white', borderWidth: 1, overflow: 'hidden', shadowColor: 'black', shadowRadius: 10, shadowOpacity: 1, backgroundColor: 'transparent'},
-  leaderBoardBox: {height: '60%', width: '75%', alignSelf: 'center', backgroundColor: 'white', alignItems: 'center', borderWidth: 2, borderRadius: 5, shadowRadius: 15, shadowColor: 'silver', shadowOpacity: 1},
+  scoreCardBox: { height: '50%', overflow: 'hidden', shadowColor: 'black', shadowRadius: 10, shadowOpacity: 1, backgroundColor: 'transparent'},
+  leaderBoardBox: {height: '60%', width: '75%', alignSelf: 'center', backgroundColor: 'white', alignItems: 'center',  borderRadius: 5, shadowRadius: 15, shadowColor: 'silver', shadowOpacity: 1},
   addPlayerBtn: {
     ...generalStyling.buttonContent,
     marginHorizontal: 20

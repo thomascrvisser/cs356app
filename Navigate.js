@@ -6,12 +6,14 @@ import Search from './screens/Search'
 import Create from './screens/Create'
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { NavigationContainer } from '@react-navigation/native';
+import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'
 import ActiveScoreCard from './screens/ActiveScoreCard';
+import { setStatusBarBackgroundColor } from 'expo-status-bar';
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
+
 
 function getHeaderTitle(route) {
   const routeName = route.state
@@ -61,7 +63,7 @@ function MainTabNavigator() {
 
 function MainStackNavigator() {
     return (
-      <NavigationContainer>
+      <NavigationContainer >
         <Stack.Navigator
           initialRouteName='Login'>
           <Stack.Screen
@@ -78,7 +80,7 @@ function MainStackNavigator() {
             name='Home'
             component={MainTabNavigator}
             options={({ route }) => ({
-                headerTitle: getHeaderTitle(route),
+                headerTitle: "",
                 headerLeft: null
             })}
           />

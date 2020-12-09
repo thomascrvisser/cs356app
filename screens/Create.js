@@ -118,9 +118,9 @@ export default class Create extends React.Component {
                 max={20}
                 min={1}
                 step={1}
-                color={"#E4B607"}
+                color={"#3C81B9"}
                 value={this.state.columns}
-                textColor={'white'}
+                textColor={'black'}
                 fontSize={30}
                 onChange={(num) => {
                   this.setState({columns:num});
@@ -128,7 +128,7 @@ export default class Create extends React.Component {
               />
             </View>
             <View style={{...styles.formArea, height: 250}}>
-              <Text style={generalStyling.formTitle}>Customize Round Names</Text>
+              <Text style={generalStyling.formTitle}>Custom Round Names</Text>
               <Text style={{...generalStyling.formTitle, fontSize: 12}}>(Optional- Defaults to Numbers)</Text>
               <ScrollView horizontal={true}>
                 <View style={{flexDirection:'row', flexWrap: 'wrap', alignItems:"flex-start"}}>
@@ -138,7 +138,7 @@ export default class Create extends React.Component {
             </View>
             <View style={styles.submitBtnArea}>
               <TouchableOpacity disabled={this.state.disable} onPress={submit} style={styles.submitBtn}>
-                <Text style={{fontSize: 20}}>Submit</Text>
+                <Text style={{fontSize: 20, color:'white'}}>Submit</Text>
               </TouchableOpacity>
             </View>
         </View>
@@ -154,8 +154,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: '100%',
     alignSelf:'baseline',
-    paddingTop: 10,
-    paddingBottom: 10
+    paddingBottom: 20
   },
   formArea: {
     ...generalStyling.formArea
@@ -178,8 +177,7 @@ const styles = StyleSheet.create({
     ...generalStyling.buttonArea
   },
   submitBtn: {
-    ...generalStyling.buttonContent,
-    backgroundColor: 'white',
+    ...generalStyling.loginBtn,
     width: 150,
     alignItems: 'center'
   }

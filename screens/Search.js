@@ -40,7 +40,9 @@ export default class Search extends React.Component {
         clearicon= {true}
         onChangeText={text => this.searchItems(text)}
         value={this.state.value}
+        containerStyle={{backgroundColor: 'white'}}
         lightTheme={true}
+        inputContainerStyle={{backgroundColor:'white'}}
         round={true}
       />
     );

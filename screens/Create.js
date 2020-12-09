@@ -60,7 +60,6 @@ export default class Create extends React.Component {
       let newScorecard = new scoreCardService(
         name,
         this.state.desc,
-        this.state.players,
         headarray.length,
         headarray
       )

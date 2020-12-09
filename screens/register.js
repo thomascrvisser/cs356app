@@ -18,7 +18,7 @@ export default class App extends React.Component {
           <TextInput  
             style={styles.inputText}
             placeholder="Username..." 
-            placeholderTextColor="#003f5c"
+            placeholderTextColor="#434343"
             onChangeText={text => this.setState({username:text})}/>
         </View>
         <View style={styles.inputView} >
@@ -26,7 +26,7 @@ export default class App extends React.Component {
             secureTextEntry
             style={styles.inputText}
             placeholder="Password..." 
-            placeholderTextColor="#003f5c"
+            placeholderTextColor="#434343"
             onChangeText={text => this.setState({password:text})}/>
         </View>
         <View style={styles.inputView} >
@@ -34,7 +34,7 @@ export default class App extends React.Component {
             secureTextEntry
             style={styles.inputText}
             placeholder="Confirm Password..." 
-            placeholderTextColor="#003f5c"
+            placeholderTextColor="#434343"
             onChangeText={text => this.setState({confirm_password:text})}/>
         </View>
         

@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         ...generalStyling.cardTitleText
     },
     deleteItem: {
-        backgroundColor: '#E4B607',
+        backgroundColor: '#ec9488',
         justifyContent: 'center',
         alignItems: 'center',
         width: 100,

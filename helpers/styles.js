@@ -1,15 +1,18 @@
+import { setStatusBarTranslucent } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 
 const generalStyling = StyleSheet.create({
   headers: {
-    fontSize: 30,
-    color: '#FFFFEC'
+    fontSize: 35,
+    color: '#FFFFEC',
+    fontWeight: 'bold',
+    marginBottom: 20
   },
   bgScreen: {
-    backgroundColor: '#72a0c1'
+    backgroundColor: '#FFFFFF'
   },
   entryScreens: {
-    backgroundColor: '#003f5c',
+    backgroundColor: '#28567B',
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%'
@@ -17,12 +20,12 @@ const generalStyling = StyleSheet.create({
   entryLogo: {
     fontWeight:"bold",
     fontSize:50,
-    color:"#E4B607",
+    color:"#FFFFFF",
     marginBottom:40
   },
   inputView:{
     width:"80%",
-    backgroundColor:"#A6E5FF",
+    backgroundColor:"#FFFFFF",
     borderRadius:25,
     height:50,
     marginBottom:20,
@@ -31,11 +34,11 @@ const generalStyling = StyleSheet.create({
   },
   inputText:{
     height:50,
-    color:"white"
+    color:"black"
   },
   loginBtn:{
     width:"80%",
-    backgroundColor:"#E4B607",
+    backgroundColor:"#3C81B9",
     borderRadius:25,
     height:50,
     alignItems:"center",
@@ -47,7 +50,7 @@ const generalStyling = StyleSheet.create({
     color:"white"
   },
   cardStyle: {
-    backgroundColor: 'white',
+    backgroundColor: '#F5F5F5',
     borderRadius: 15,
     elevation: 3,
     shadowOffset: { width: 1, height: 1 },
@@ -76,36 +79,31 @@ const generalStyling = StyleSheet.create({
     justifyContent: 'center'
   },
   buttonContent: {
-    backgroundColor: '#A6E5FF',
+    backgroundColor: '#3C81B9',
     color: 'white',
-    borderWidth: 2,
-    borderRadius: 10,
+    borderRadius: 25,
     fontWeight: 'bold',
     padding: 7,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   buttonText: {
     color: 'black'
   },
   formArea: {
-    paddingBottom: 15,
+    paddingBottom: 20,
     alignItems: 'center'
   },
   formTitle: {
-    color: 'white',
+    color: 'black',
     paddingBottom: 5,
-    alignSelf: 'center',
-    fontSize: 20
+    alignSelf: 'flex-start',
+    fontSize: 30
   },
   formInputBox: {
-    borderLeftWidth: 2,
-    borderRightWidth: 2,
-    borderTopWidth: 2,
-    borderBottomWidth: 2,
     width:300,
-    height: 40,
-    backgroundColor: 'white',
-    color: 'black',
+    height: 45,
+    backgroundColor: '#F5F5F5',
+    borderRadius:10,
     paddingLeft: 5
   },
 })

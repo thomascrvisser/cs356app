@@ -45,7 +45,7 @@ export default class Home extends React.Component {
 
     const renderHeader = () => {
       return (
-        <Text style={styles.scorecardHeader}>ScoreCards</Text>
+        <Text style={styles.scorecardHeader}>My ScoreCards</Text>
       );
     };
 
@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     ...generalStyling.headers,
     textAlign: "center",
     justifyContent: 'center',
-    height: 40
+    height: 40,
+    color:'black'
   }
 });

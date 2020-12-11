@@ -12,7 +12,7 @@ export default class App extends React.Component {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
-        <Text style={styles.logo}>ScoreApp</Text>
+        <Text style={styles.logo}>ScoreKeeper Champ</Text>
         <View style={styles.inputView} >
           <TextInput  
             style={styles.inputText}

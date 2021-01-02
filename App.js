@@ -9,7 +9,7 @@ export default function App() {
   if (!appScorecardList || !appScorecardList.length) {
     initialList.map((game) => appScorecardList.push(game))
   }
- 
+
   return (
     <Navigator/>
   );

@@ -14,7 +14,6 @@ import { setStatusBarBackgroundColor } from 'expo-status-bar';
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
-
 function getHeaderTitle(route) {
   const routeName = route.state
     ? route.state.routes[route.state.index].name
@@ -46,8 +45,6 @@ function MainTabNavigator() {
           }}
           listeners={({ navigation, route }) =>  ({
             tabPress: e => {
-              console.log('you pressed home')
-              console.log(e.data)
               navigation.replace('Home')
             }
           })}
@@ -69,25 +66,35 @@ function MainStackNavigator() {
           <Stack.Screen
             name='Login'
             component={Login}
-            options={{ headerShown: false}}
+            options={{ 
+              headerShown: false,
+              gestureEnabled: false
+            }}
           />
           <Stack.Screen
             name='Register'
             component={Register}
-            options={{ headerShown: false }}
+            options={{ 
+              headerShown: false,
+              gestureEnabled: false
+            }}
           />
           <Stack.Screen
             name='Home'
             component={MainTabNavigator}
             options={({ route }) => ({
-                headerTitle: "",
-                headerLeft: null
+                headerShown: true,
+                headerLeft: null,
+                gestureEnabled: false
             })}
           />
           <Stack.Screen
             name='ActiveScoreCard'
             component={ActiveScoreCard}
-            options={{ headerShown: true }}
+            options={{ 
+              headerShown: true,
+              gestureEnabled: false
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { ScoreCardItem } from '../components/ScoreCardItem';
 import { testUser1 } from '../db'
 import { generalStyling } from '../helpers/styles'
+import { FireBase } from '../db'
 
 const window = Dimensions.get('window');
 
@@ -11,7 +12,9 @@ export default class Home extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      scorecardList: []
+      scorecardList: [],
+      user: {},
+      userName: ''
     }
   }
 
@@ -23,7 +26,9 @@ export default class Home extends React.Component {
         scorecardList: testUser1
       })
     }
-    
+    const user = FireBase.auth().currentUser
+    console.log(user.displayName)
+    this.setState({ userName: user.displayName })
   }
 
   componentWillUnmount() {
@@ -31,21 +36,11 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const renderSeparator = () => {
-      return (
-        <View
-          style={{
-            height: 1,
-            width: '100%',
-            backgroundColor: '#CED0CE',
-          }}
-        />
-      );
-    };
-
     const renderHeader = () => {
       return (
-        <Text style={styles.scorecardHeader}>My ScoreCards</Text>
+        <View style={styles.scorecardListHeaderView}>
+          <Text style={styles.scorecardListHeaderText}>{`Game List`}</Text>
+        </View>
       );
     };
 
@@ -110,11 +105,15 @@ const styles = StyleSheet.create({
     width: 25,
     resizeMode: 'stretch',
   },
-  scorecardHeader: {
+  scorecardListHeaderText: {
     ...generalStyling.headers,
-    textAlign: "center",
-    justifyContent: 'center',
-    height: 40,
-    color:'black'
+    textAlign: 'center',
+    color:'white'
+  },
+  scorecardListHeaderView: {
+    backgroundColor: '#3C81B9',
+    borderRadius: 20,
+    padding: 5,
+    marginTop: 10
   }
 });

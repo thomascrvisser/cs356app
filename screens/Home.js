@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3C81B9',
     borderRadius: 20,
     padding: 5,
-    marginTop: 10
+    marginTop: 10,
+    width: 300
   }
 });

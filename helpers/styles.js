@@ -59,7 +59,6 @@ const generalStyling = StyleSheet.create({
     shadowRadius: 2,
     width: 300,
     height: 70,
-    marginHorizontal: 4,
     marginVertical: 10,
   },
   cardContent: {

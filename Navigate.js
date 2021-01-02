@@ -83,8 +83,8 @@ function MainStackNavigator() {
             name='Home'
             component={MainTabNavigator}
             options={({ route }) => ({
-                headerShown: true,
                 headerLeft: null,
+                headerTitle: getHeaderTitle(route),
                 gestureEnabled: false
             })}
           />
